@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 
 function Header() {
   return (
@@ -13,13 +14,27 @@ function Header() {
         <div className="flex items-center gap-14">
           <p>About</p>
           <p>Pricing</p>
-          <Link
-            title="Sign In"
-            href="/sign-in"
-            className="rounded-xl bg-sky-700 px-4 py-2 hover:bg-sky-500"
-          >
-            <p>Sign In</p>
-          </Link>
+
+          {/*  User is Signed in and there is an active session, display link to Dashboard*/}
+          <SignedIn>
+            <Link href="/">
+              <p>Dashboard</p>
+            </Link>
+            <Link href="/">
+              <div className="h-12 w-12 rounded-full bg-white" />
+            </Link>
+          </SignedIn>
+
+          {/* If user is not signed in we need to direct them to sign in*/}
+          <SignedOut>
+            <Link
+              title="Sign In"
+              href="/sign-in"
+              className="rounded-xl bg-sky-700 px-4 py-2 hover:bg-sky-500"
+            >
+              <p>Sign In</p>
+            </Link>
+          </SignedOut>
         </div>
       </div>
     </div>
