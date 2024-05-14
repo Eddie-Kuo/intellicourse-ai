@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 function Header() {
   return (
@@ -12,7 +13,9 @@ function Header() {
         <div className="flex gap-14">
           <p>About</p>
           <p>Pricing</p>
-          <p>Sign In</p>
+          <Link title="Sign In" href="/sign-in">
+            <p>Sign In</p>
+          </Link>
         </div>
       </div>
     </div>
