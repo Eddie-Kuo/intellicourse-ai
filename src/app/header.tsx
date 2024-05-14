@@ -7,9 +7,9 @@ function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between self-center">
         <div className="flex items-center gap-5">
           <Image src="/logo.png" alt="app logo" width={60} height={60} />
-          <p>IntelliCourse.AI</p>
+          <p className="text-2xl font-bold">IntelliCourse.AI</p>
         </div>
-        <div className="flex gap-10">
+        <div className="flex gap-14">
           <p>About</p>
           <p>Pricing</p>
           <p>Sign In</p>
