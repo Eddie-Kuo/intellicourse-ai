@@ -17,7 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        layout: {
+          socialButtonsPlacement: "bottom",
+          // socialButtonsVariant: "blockButton",
+          logoPlacement: "inside",
+        },
+      }}
+    >
       <html lang="en">
         <body className={inter.className}>
           <Header />
