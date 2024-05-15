@@ -20,9 +20,6 @@ function Header() {
             <Link href="/">
               <p>Dashboard</p>
             </Link>
-            {/*<Link href="/">*/}
-            {/*  <div className="h-12 w-12 rounded-full bg-white" />*/}
-            {/*</Link>*/}
             <UserButton
               appearance={{
                 elements: { avatarBox: "w-10 h-10" },
