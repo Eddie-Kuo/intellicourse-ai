@@ -21,7 +21,6 @@ export default function RootLayout({
       appearance={{
         layout: {
           socialButtonsPlacement: "bottom",
-          // socialButtonsVariant: "blockButton",
           logoPlacement: "inside",
         },
       }}
