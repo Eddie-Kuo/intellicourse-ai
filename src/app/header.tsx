@@ -23,7 +23,11 @@ function Header() {
             {/*<Link href="/">*/}
             {/*  <div className="h-12 w-12 rounded-full bg-white" />*/}
             {/*</Link>*/}
-            <UserButton showName={true} />
+            <UserButton
+              appearance={{
+                elements: { avatarBox: "w-10 h-10" },
+              }}
+            />
           </SignedIn>
 
           {/* If user is not signed in we need to direct them to sign in*/}
@@ -31,7 +35,7 @@ function Header() {
             <Link
               title="Sign In"
               href="/sign-in"
-              className="rounded-xl bg-sky-800 px-4 py-2 hover:bg-sky-700"
+              className="rounded-xl bg-sky-600 px-4 py-2 hover:bg-sky-700"
             >
               <p>Sign In</p>
             </Link>
