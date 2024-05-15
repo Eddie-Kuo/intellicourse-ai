@@ -17,7 +17,7 @@ function Header() {
 
           {/*  User is Signed in and there is an active session, display link to Dashboard & Profile*/}
           <SignedIn>
-            <Link href="/">
+            <Link href="/dashboard">
               <p>Dashboard</p>
             </Link>
             <UserButton

@@ -12,6 +12,7 @@ export default function Page() {
         },
       }}
       // redirect url to dashboard
+      forceRedirectUrl="/dashboard"
     />
   );
 }
