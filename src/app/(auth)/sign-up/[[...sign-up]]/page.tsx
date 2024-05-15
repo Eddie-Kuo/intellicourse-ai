@@ -12,7 +12,7 @@ export default function Page() {
           alternativeMethodsBlockButton__github: "w-full",
         },
       }}
-      // redirect url to dashboard
+      forceRedirectUrl="/dashboard"
     />
   );
 }
