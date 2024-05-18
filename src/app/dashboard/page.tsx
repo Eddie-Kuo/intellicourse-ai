@@ -1,5 +1,6 @@
 import React from "react";
 import { FaSquarePlus } from "react-icons/fa6";
+import Link from "next/link";
 
 function Page() {
   return (
@@ -11,10 +12,13 @@ function Page() {
           <p className="text-zinc-800">
             Start by generating a new course or resuming where you left off!
           </p>
-          <button className="flex items-center gap-3 rounded-xl border-2 border-zinc-200 p-5 shadow-2xl">
+          <Link
+            href="/course/create"
+            className="flex items-center gap-3 rounded-xl border-2 border-zinc-200 p-5 shadow-2xl"
+          >
             <FaSquarePlus color={"lightGrey"} size={30} />
             <p className="text-semibold text-zinc-800">Create a Course</p>
-          </button>
+          </Link>
         </div>
       </div>
     </div>
