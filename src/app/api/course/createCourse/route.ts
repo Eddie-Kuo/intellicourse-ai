@@ -17,12 +17,12 @@ interface courseOutput {
 
 export async function POST(request: Request) {
   const { ...body } = await request.json();
-  const { title } = createCourseSchema.parse(body);
+  const { topic, userId } = createCourseSchema.parse(body);
 
   try {
     let generated_course: courseOutput = await strict_output(
       "You are an AI capable of curating comprehensive course content, coming up with relevant chapter titles, and finding relevant youtube videos for each chapter",
-      `It is your job to create a detailed course roadmap about ${title}. Create units for all the major topics about ${title}. Then, for each unit, create a list of chapters breaking down the unit into more specific subtopics for the user to follow. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educational video for each chapter. Each query should give an educational informative course in youtube.`,
+      `It is your job to create a detailed course roadmap about ${topic}. Create units for all the major topics about ${topic}. Then, for each unit, create a list of chapters breaking down the unit into more specific subtopics for the user to follow. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educational video for each chapter. Each query should give an educational informative course in youtube.`,
       {
         title: "title of the course",
         units: "title of the unit",
@@ -34,17 +34,26 @@ export async function POST(request: Request) {
     console.log("GENERATED COURSE", generated_course);
 
     // add course to database
-    const courseDoc = await addDoc(collection(FIRESTORE_DB, `courses`), {
-      title: generated_course.title,
-      createdAt: serverTimestamp(),
-    });
+    const courseDoc = await addDoc(
+      collection(FIRESTORE_DB, `users/${userId}/courses`),
+      {
+        title: generated_course.title,
+        createdAt: serverTimestamp(),
+      },
+    );
 
     // map and add chapters
     for (const unit of generated_course.units) {
-      await addDoc(collection(FIRESTORE_DB, `courses/${courseDoc.id}/units`), {
-        unit_title: unit.title,
-        chapters: unit.chapters,
-      });
+      await addDoc(
+        collection(
+          FIRESTORE_DB,
+          `users/${userId}/courses/${courseDoc.id}/units`,
+        ),
+        {
+          unit_title: unit.title,
+          chapters: unit.chapters,
+        },
+      );
     }
 
     return NextResponse.json({ courseId: courseDoc.id });

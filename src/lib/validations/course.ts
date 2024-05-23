@@ -1,7 +1,8 @@
 import * as z from "zod";
 
 const createCourseSchema = z.object({
-  title: z.string().min(3).max(100),
+  topic: z.string().min(3).max(100),
+  userId: z.string(),
 });
 
 export default createCourseSchema;
