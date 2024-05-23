@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 
 function Page() {
   return (
@@ -6,10 +6,15 @@ function Page() {
       <div className="flex flex-col justify-center gap-3">
         <p className="text-zinc-800">Course creation page</p>
         <p className="text-zinc-800">&quot;Text about what to do&quot;</p>
-        <input
-          placeholder="enter topic"
-          className="rounded-lg bg-gray-300 px-4 py-2"
-        />
+        <div className="flex gap-3">
+          <input
+            placeholder="enter topic"
+            className="rounded-lg bg-gray-300 px-4 py-2"
+          />
+          <button onClick={() => {}} className="rounded-lg bg-sky-300 p-2">
+            <p className="font-semibold text-zinc-800">Generate</p>
+          </button>
+        </div>
       </div>
     </div>
   );
