@@ -14,8 +14,6 @@ export async function getYoutubeVideoId(searchQuery: string) {
     `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_API}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`,
   );
 
-
-
   if (!data) {
     console.log("Youtube Search Failed!");
     return;
