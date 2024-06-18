@@ -12,10 +12,16 @@
     "@clerk/nextjs": "^5.0.9",
     "@clerk/themes": "^2.1.4",
     "@clerk/types": "^4.3.0",
+    "@types/react-icons": "^3.0.0",
+    "axios": "^1.7.2",
     "firebase": "^10.12.0",
     "next": "14.2.3",
+    "openai": "^4.47.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.2.1",
+    "youtube-transcript": "^1.2.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",

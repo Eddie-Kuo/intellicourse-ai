@@ -1,12 +1,11 @@
-import React from "react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 function Header() {
   return (
     <div className="z-10 w-full items-center bg-zinc-800 py-5">
-      <div className="mx-auto flex max-w-7xl items-center justify-between self-center">
+      <div className="mx-auto flex items-center justify-between self-center px-14">
         <Link href="/" className="flex items-center gap-5">
           <Image src="/logo.png" alt="app logo" width={60} height={60} />
           <p className="text-2xl font-bold">IntelliCourse.AI</p>
