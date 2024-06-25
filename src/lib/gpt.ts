@@ -13,7 +13,7 @@ type OutputFormat = {
   [key: string]: string | string;
 };
 
-export async function strict_output(
+export async function gpt(
   system_prompt: string,
   user_prompt: string,
   output_format: OutputFormat,
@@ -25,7 +25,6 @@ export async function strict_output(
 
   try {
     const response = await openai.chat.completions.create({
-      temperature: 1,
       model: model,
       messages: [
         {
@@ -34,23 +33,21 @@ export async function strict_output(
         },
         { role: "user", content: user_prompt.toString() },
       ],
+      response_format: {
+        type: "json_object",
+      },
     });
 
-    let res: string =
-      response.choices[0].message?.content?.replace(/'/g, '"') ?? "";
+    console.log(response.choices[0]);
 
-    if (res.length) {
-      // remove leading and unwanted backslashes
-      res = res.replace(/\\/g, "");
-      // ensure that we don't replace away apostrophes in text
-      res = res.replace(/(\w)"(\w)/g, "$1'$2");
+    const generatedText = response.choices[0].message?.content ?? "";
 
-      let output: any = JSON.parse(res);
-
-      return output;
+    if (generatedText.length) {
+      const res = JSON.parse(generatedText);
+      return res;
     }
 
-    return res;
+    return generatedText;
   } catch (error) {
     console.log("ERROR: Error when generating with OpenAI:", error);
     return {};
@@ -80,4 +77,3 @@ export async function generateSummary(
     return "";
   }
 }
-
