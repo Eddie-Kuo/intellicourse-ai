@@ -1,7 +1,11 @@
 import { FIRESTORE_DB } from "@/firebaseConfig";
 import { generateSummary, strict_output } from "@/lib/gpt";
 import createCourseSchema from "@/lib/validations/course";
-import { getQuestionsFromTranscript, getYoutubeVideoId, getYoutubeVideoTranscript } from "@/lib/youtube";
+import {
+  getQuestionsFromTranscript,
+  getYoutubeVideoId,
+  getYoutubeVideoTranscript,
+} from "@/lib/youtube";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { NextResponse } from "next/server";
 
@@ -18,7 +22,7 @@ interface courseOutput {
 
 export async function POST(request: Request) {
   const { ...body } = await request.json();
-  const { topic , userId } = createCourseSchema.parse(body);
+  const { topic, userId } = createCourseSchema.parse(body);
 
   try {
     let generated_course: courseOutput = await strict_output(
@@ -43,68 +47,83 @@ export async function POST(request: Request) {
       },
     );
 
-    // Traverse units and chapters to fetch additional information
-    for (let i = 0; i < generated_course.units.length; i++) {
-      const unit = generated_course.units[i];
-
+    const unitPromises = generated_course.units.map(async (unit, i) => {
+      // add unit into database
       const unitId = await addDoc(
-        collection(FIRESTORE_DB, `users/${userId}/courses/${courseDoc.id}/units`),
+        collection(
+          FIRESTORE_DB,
+          `users/${userId}/courses/${courseDoc.id}/units`,
+        ),
         {
           unit: i + 1,
           title: unit.title,
         },
       );
 
-      for (let j = 0; j < unit.chapters.length; j++) {
-        const chapter = unit.chapters[j];
+      const chapterPromises = unit.chapters.map(async (chapter, j) => {
+        try {
+          const videoId = await getYoutubeVideoId(chapter.youtube_search_query);
 
-        const videoId = await getYoutubeVideoId(chapter.youtube_search_query);
-
-        let transcript = await getYoutubeVideoTranscript(
-          videoId.items[0].id.videoId,
-        );
-
-        // we need to account for the videos having transcript disabled
-        let summary;
-
-        if (transcript.length) {
-          let maxLength = 500;
-          transcript = transcript?.split(" ").slice(0, maxLength).join(" ");
-
-          // generate the summary from youtube transcript
-          summary = await generateSummary(
-            "You are an AI capable of summarizing a youtube transcript",
-            `Summarize the following video transcript in 250 words or less: ${transcript}. Do not talk about the sponsors, anything unrelated to the main topic, or introduce what the summary is about.`,
+          let transcript = await getYoutubeVideoTranscript(
+            videoId.items[0].id.videoId,
           );
-        } else {
-          summary = "No available summary for this video!";
+
+          let summary;
+
+          if (transcript.length) {
+            let maxLength = 500;
+            transcript = transcript?.split(" ").slice(0, maxLength).join(" ");
+
+            // generate the summary from youtube transcript
+            summary = await generateSummary(
+              "You are an AI capable of summarizing a youtube transcript",
+              `Summarize the following video transcript in 250 words or less: ${transcript}. Do not talk about the sponsors, anything unrelated to the main topic, or introduce what the summary is about.`,
+            );
+          } else {
+            summary = "No available summary for this video!";
+          }
+
+          const question = await getQuestionsFromTranscript(
+            summary!,
+            generated_course.title,
+          );
+
+          // add chapters to database
+          await addDoc(
+            collection(
+              FIRESTORE_DB,
+              `users/${userId}/courses/${courseDoc.id}/units/${unitId.id}/chapters`,
+            ),
+            {
+              chapter: j + 1,
+              chapter_title: chapter.chapter_title,
+              summary: summary,
+              youtube_video_id: videoId.items[0].id.videoId,
+              question: question,
+            },
+          );
+        } catch (error) {
+          console.error(`Error processing chapter ${j + 1}`);
+
+          if (error instanceof Error) {
+            return new Response(error.message, { status: 500 });
+          }
         }
+      });
 
-        // generate the question based on the summarized transcript
-        const question = await getQuestionsFromTranscript(
-          summary!,
-          generated_course.title,
-        );
+      await Promise.all(chapterPromises);
+    });
 
-        // Populate database with chapter info
-        await addDoc(
-          collection(
-            FIRESTORE_DB,
-            `users/${userId}/courses/${courseDoc.id}/units/${unitId.id}/chapters`,
-          ),
-          {
-            chapter: j + 1,
-            chapter_title: chapter.chapter_title,
-            summary: summary,
-            youtube_video_id: videoId.items[0].id.videoId,
-            question: question,
-          },
-        );
-      }
+    await Promise.all(unitPromises);
+
+    return Response.json({ courseId: courseDoc.id });
+  } catch (error) {
+    console.error("Error with generating course", error);
+
+    if (error instanceof Error) {
+      return new Response(error.message, { status: 500 });
     }
 
-    return NextResponse.json({ courseId: courseDoc.id });
-  } catch (error) {
-    return new NextResponse("Error with generating course", { status: 400 });
+    return new Response("Error with generating course", { status: 500 });
   }
 }
