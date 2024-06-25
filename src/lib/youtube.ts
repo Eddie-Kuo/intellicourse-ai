@@ -1,3 +1,7 @@
+/**
+ * This file contains functions to interact with the Youtube API
+ */
+
 import axios from "axios";
 import { YoutubeTranscript } from "youtube-transcript";
 import { strict_output } from "./gpt";
@@ -10,8 +14,6 @@ export async function getYoutubeVideoId(searchQuery: string) {
     `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_API}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`,
   );
 
-
-
   if (!data) {
     console.log("Youtube Search Failed!");
     return;
@@ -20,14 +22,13 @@ export async function getYoutubeVideoId(searchQuery: string) {
   return data;
 }
 
-// Function to fetch the youtube video transcript
 export async function getYoutubeVideoTranscript(videoId: string) {
   try {
     const transcriptArr = await YoutubeTranscript.fetchTranscript(videoId, {
       lang: "en",
     });
 
-    // Combine the transcript. test
+    // Combine the transcript text
     let transcript = "";
     for (let t of transcriptArr) {
       transcript += t.text + " ";
