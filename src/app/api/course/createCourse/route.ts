@@ -7,7 +7,6 @@ import {
   getYoutubeVideoTranscript,
 } from "@/lib/youtube";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { NextResponse } from "next/server";
 
 interface courseOutput {
   title: string;
