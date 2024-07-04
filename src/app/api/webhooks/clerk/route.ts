@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { EmailAddress, WebhookEvent } from "@clerk/nextjs/server";
+import { WebhookEvent } from "@clerk/nextjs/server";
 import { db } from "@/database";
 import { usersTable } from "@/database/schema/users";
 import { createUser } from "@/database/queries/users";
@@ -68,6 +68,7 @@ export async function POST(req: Request) {
     };
 
     try {
+      console.log("hello");
       const newUser = await db.insert(usersTable).values(user);
       console.log(newUser);
     } catch (error) {
