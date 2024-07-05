@@ -39,7 +39,6 @@ export async function POST(request: Request) {
 
     // add course to database
     const courseDoc = await addDoc(
-      // Todo: Refactor adding course to database with new provider
       collection(FIRESTORE_DB, `users/${userId}/courses`),
       {
         title: generated_course.title,
@@ -48,7 +47,7 @@ export async function POST(request: Request) {
     );
 
     const unitPromises = generated_course.units.map(async (unit, i) => {
-      // Todo: Refactor adding unit into database
+      // add unit into database
       const unitId = await addDoc(
         collection(
           FIRESTORE_DB,
@@ -88,8 +87,7 @@ export async function POST(request: Request) {
             generated_course.title,
           );
 
-          // Todo: add chapters to database
-          // Todo: add question to database
+          // add chapters to database
           await addDoc(
             collection(
               FIRESTORE_DB,
