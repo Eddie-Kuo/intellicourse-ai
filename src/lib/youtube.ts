@@ -43,7 +43,7 @@ export async function getYoutubeVideoTranscript(videoId: string) {
 }
 
 export async function getQuestionsFromTranscript(
-  transcript: string,
+  summary: string,
   courseTitle: string,
 ) {
   type Question = {
@@ -54,21 +54,25 @@ export async function getQuestionsFromTranscript(
     optionThree: string;
   };
 
-  if (!transcript) {
-    return {};
-  }
+  let question: Question = {
+    question: "No question for this chapter!",
+    answer: "",
+    optionOne: "",
+    optionTwo: "",
+    optionThree: "",
+  };
 
-  const question: Question = await gpt(
+  question = await gpt(
     "You are a helpful AI that is able to generate mcq questions and answers. The length of each answer should not be more than 15 words",
 
-    `You are to generate a random hard mcq question about ${courseTitle} with context of the following transcript: ${transcript}.`,
+    `You are to generate a random hard mcq question about ${courseTitle} with context of the following transcript: ${summary}.`,
 
     {
       question: "question",
       answer: "answer with max length of 15 words",
-      option1: "option 1 with max length of 15 words",
-      option2: "option 2 with max length of 15 words",
-      option3: "option 3 with max length of 15 words",
+      optionOne: "option 1 with max length of 15 words",
+      optionTwo: "option 2 with max length of 15 words",
+      optionThree: "option 3 with max length of 15 words",
     },
   );
 

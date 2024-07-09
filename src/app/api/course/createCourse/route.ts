@@ -1,4 +1,5 @@
 import { db } from "@/database";
+import { chapters } from "@/database/schema/chapters";
 import { courses } from "@/database/schema/courses";
 import { units } from "@/database/schema/units";
 import { FIRESTORE_DB } from "@/firebaseConfig";
@@ -121,8 +122,20 @@ export async function POST(request: Request) {
           //     question: question,
           //   },
           // );
+
+          // insert the chapter
+          const chapterId = await db
+            .insert(chapters)
+            .values({
+              chapter: j + 1,
+              title: chapter.chapter_title,
+              ytVideoId: videoId.items[0].id.videoId,
+              ytVideoSummary: summary!,
+              unitId: unitId[0].insertedUnit,
+            })
+            .returning({ insertedChapter: chapters.id });
         } catch (error) {
-          console.error(`Error processing chapter ${j + 1}`);
+          console.error(`Error processing chapter ${j + 1}`, error);
 
           if (error instanceof Error) {
             return new Response(error.message, { status: 500 });
@@ -135,7 +148,7 @@ export async function POST(request: Request) {
 
     await Promise.all(unitPromises);
 
-    return Response.json({});
+    return Response.json({ generatedCourseId: courseId[0].insertedCourse });
   } catch (error) {
     console.error("Error with generating course", error);
 
