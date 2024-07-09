@@ -2,7 +2,6 @@ import { db } from "@/database";
 import { chapters } from "@/database/schema/chapters";
 import { courses } from "@/database/schema/courses";
 import { units } from "@/database/schema/units";
-import { FIRESTORE_DB } from "@/firebaseConfig";
 import { generateSummary, gpt } from "@/lib/gpt";
 import createCourseSchema from "@/lib/validations/course";
 import {
@@ -10,8 +9,6 @@ import {
   getYoutubeVideoId,
   getYoutubeVideoTranscript,
 } from "@/lib/youtube";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-
 interface courseOutput {
   title: string;
   units: {
@@ -41,15 +38,6 @@ export async function POST(request: Request) {
 
     console.log("GENERATED COURSE", generated_course);
 
-    // // add course to database
-    // const courseDoc = await addDoc(
-    //   collection(FIRESTORE_DB, `users/${userId}/courses`),
-    //   {
-    //     title: generated_course.title,
-    //     createdAt: serverTimestamp(),
-    //   },
-    // );
-
     const courseId = await db
       .insert(courses)
       .values({
@@ -59,18 +47,6 @@ export async function POST(request: Request) {
       .returning({ insertedCourse: courses.id });
 
     const unitPromises = generated_course.units.map(async (unit, i) => {
-      // add unit into database
-      // const unitId = await addDoc(
-      //   collection(
-      //     FIRESTORE_DB,
-      //     `users/${userId}/courses/${courseDoc.id}/units`,
-      //   ),
-      //   {
-      //     unit: i + 1,
-      //     title: unit.title,
-      //   },
-      // );
-
       const unitId = await db
         .insert(units)
         .values({
@@ -108,37 +84,19 @@ export async function POST(request: Request) {
             generated_course.title,
           );
 
-          // add chapters to database
-          // await addDoc(
-          //   collection(
-          //     FIRESTORE_DB,
-          //     `users/${userId}/courses/${courseDoc.id}/units/${unitId.id}/chapters`,
-          //   ),
-          //   {
-          //     chapter: j + 1,
-          //     chapter_title: chapter.chapter_title,
-          //     summary: summary,
-          //     youtube_video_id: videoId.items[0].id.videoId,
-          //     question: question,
-          //   },
-          // );
-
           // insert the chapter
-          const chapterId = await db
-            .insert(chapters)
-            .values({
-              chapter: j + 1,
-              title: chapter.chapter_title,
-              ytVideoId: videoId.items[0].id.videoId,
-              ytVideoSummary: summary!,
-              question: question.question,
-              answer: question.answer,
-              optionOne: question.optionOne,
-              optionTwo: question.optionTwo,
-              optionThree: question.optionThree,
-              unitId: unitId[0].insertedUnit,
-            })
-            .returning({ insertedChapter: chapters.id });
+          await db.insert(chapters).values({
+            chapter: j + 1,
+            title: chapter.chapter_title,
+            ytVideoId: videoId.items[0].id.videoId,
+            ytVideoSummary: summary!,
+            question: question.question,
+            answer: question.answer,
+            optionOne: question.optionOne,
+            optionTwo: question.optionTwo,
+            optionThree: question.optionThree,
+            unitId: unitId[0].insertedUnit,
+          });
         } catch (error) {
           console.error(`Error processing chapter ${j + 1}`, error);
 
