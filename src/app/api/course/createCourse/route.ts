@@ -1,5 +1,6 @@
 import { db } from "@/database";
 import { courses } from "@/database/schema/courses";
+import { units } from "@/database/schema/units";
 import { FIRESTORE_DB } from "@/firebaseConfig";
 import { generateSummary, gpt } from "@/lib/gpt";
 import createCourseSchema from "@/lib/validations/course";
@@ -48,13 +49,13 @@ export async function POST(request: Request) {
     //   },
     // );
 
-    const course = await db
+    const courseId = await db
       .insert(courses)
       .values({
         title: generated_course.title,
         userId: userId,
       })
-      .returning();
+      .returning({ insertedCourse: courses.id });
 
     const unitPromises = generated_course.units.map(async (unit, i) => {
       // add unit into database
@@ -68,6 +69,15 @@ export async function POST(request: Request) {
       //     title: unit.title,
       //   },
       // );
+
+      const unitId = await db
+        .insert(units)
+        .values({
+          unit: i + 1,
+          title: unit.title,
+          courseId: courseId[0].insertedCourse,
+        })
+        .returning({ insertedUnit: units.id });
 
       const chapterPromises = unit.chapters.map(async (chapter, j) => {
         try {
