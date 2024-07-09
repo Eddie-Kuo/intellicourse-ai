@@ -1,6 +1,6 @@
 import { db } from "..";
-import { InsertUser, usersTable } from "../schema/users";
+import { InsertUser, users } from "../schema/users";
 
 export async function createUser(data: InsertUser) {
-  await db.insert(usersTable).values(data);
+  await db.insert(users).values(data);
 }
