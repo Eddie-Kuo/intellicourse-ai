@@ -62,6 +62,10 @@ export async function getQuestionsFromTranscript(
     optionThree: "",
   };
 
+  if (!summary.length || summary === "No available summary for this video!") {
+    return question;
+  }
+
   question = await gpt(
     "You are a helpful AI that is able to generate mcq questions and answers. The length of each answer should not be more than 15 words",
 
@@ -70,9 +74,10 @@ export async function getQuestionsFromTranscript(
     {
       question: "question",
       answer: "answer with max length of 15 words",
-      optionOne: "option 1 with max length of 15 words",
-      optionTwo: "option 2 with max length of 15 words",
-      optionThree: "option 3 with max length of 15 words",
+      optionOne: "option 1 with max length of 15 words that is not the answer",
+      optionTwo: "option 2 with max length of 15 words that is not the answer",
+      optionThree:
+        "option 3 with max length of 15 words that is not the answer",
     },
   );
 

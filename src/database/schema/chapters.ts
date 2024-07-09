@@ -14,6 +14,11 @@ export const chapters = sqliteTable("chapters", {
   title: text("title").notNull(),
   ytVideoId: text("yt_video_id").notNull(),
   ytVideoSummary: text("yt_video_summary").notNull(),
+  question: text("question").notNull(),
+  answer: text("answer"),
+  optionOne: text("option_one"),
+  optionTwo: text("option_two"),
+  optionThree: text("option_three"),
   unitId: integer("unit_id")
     .notNull()
     .references(() => units.id, { onDelete: "cascade" }),

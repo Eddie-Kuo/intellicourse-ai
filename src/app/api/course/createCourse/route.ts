@@ -131,6 +131,11 @@ export async function POST(request: Request) {
               title: chapter.chapter_title,
               ytVideoId: videoId.items[0].id.videoId,
               ytVideoSummary: summary!,
+              question: question.question,
+              answer: question.answer,
+              optionOne: question.optionOne,
+              optionTwo: question.optionTwo,
+              optionThree: question.optionThree,
               unitId: unitId[0].insertedUnit,
             })
             .returning({ insertedChapter: chapters.id });
