@@ -9,7 +9,7 @@ import { sql } from "drizzle-orm";
 export const courses = sqliteTable("courses", {
   id: integer("id").primaryKey(),
   title: text("title").notNull(),
-  userId: integer("user_id")
+  userId: text("user_id")
     .notNull()
     .references(() => users.clerkUserId, { onDelete: "cascade" }),
   createdAt: text("created_at")

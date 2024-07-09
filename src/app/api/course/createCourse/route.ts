@@ -1,3 +1,5 @@
+import { db } from "@/database";
+import { courses } from "@/database/schema/courses";
 import { FIRESTORE_DB } from "@/firebaseConfig";
 import { generateSummary, gpt } from "@/lib/gpt";
 import createCourseSchema from "@/lib/validations/course";
@@ -37,27 +39,35 @@ export async function POST(request: Request) {
 
     console.log("GENERATED COURSE", generated_course);
 
-    // add course to database
-    const courseDoc = await addDoc(
-      collection(FIRESTORE_DB, `users/${userId}/courses`),
-      {
+    // // add course to database
+    // const courseDoc = await addDoc(
+    //   collection(FIRESTORE_DB, `users/${userId}/courses`),
+    //   {
+    //     title: generated_course.title,
+    //     createdAt: serverTimestamp(),
+    //   },
+    // );
+
+    const course = await db
+      .insert(courses)
+      .values({
         title: generated_course.title,
-        createdAt: serverTimestamp(),
-      },
-    );
+        userId: userId,
+      })
+      .returning();
 
     const unitPromises = generated_course.units.map(async (unit, i) => {
       // add unit into database
-      const unitId = await addDoc(
-        collection(
-          FIRESTORE_DB,
-          `users/${userId}/courses/${courseDoc.id}/units`,
-        ),
-        {
-          unit: i + 1,
-          title: unit.title,
-        },
-      );
+      // const unitId = await addDoc(
+      //   collection(
+      //     FIRESTORE_DB,
+      //     `users/${userId}/courses/${courseDoc.id}/units`,
+      //   ),
+      //   {
+      //     unit: i + 1,
+      //     title: unit.title,
+      //   },
+      // );
 
       const chapterPromises = unit.chapters.map(async (chapter, j) => {
         try {
@@ -88,19 +98,19 @@ export async function POST(request: Request) {
           );
 
           // add chapters to database
-          await addDoc(
-            collection(
-              FIRESTORE_DB,
-              `users/${userId}/courses/${courseDoc.id}/units/${unitId.id}/chapters`,
-            ),
-            {
-              chapter: j + 1,
-              chapter_title: chapter.chapter_title,
-              summary: summary,
-              youtube_video_id: videoId.items[0].id.videoId,
-              question: question,
-            },
-          );
+          // await addDoc(
+          //   collection(
+          //     FIRESTORE_DB,
+          //     `users/${userId}/courses/${courseDoc.id}/units/${unitId.id}/chapters`,
+          //   ),
+          //   {
+          //     chapter: j + 1,
+          //     chapter_title: chapter.chapter_title,
+          //     summary: summary,
+          //     youtube_video_id: videoId.items[0].id.videoId,
+          //     question: question,
+          //   },
+          // );
         } catch (error) {
           console.error(`Error processing chapter ${j + 1}`);
 
@@ -115,7 +125,7 @@ export async function POST(request: Request) {
 
     await Promise.all(unitPromises);
 
-    return Response.json({ courseId: courseDoc.id });
+    return Response.json({});
   } catch (error) {
     console.error("Error with generating course", error);
 
