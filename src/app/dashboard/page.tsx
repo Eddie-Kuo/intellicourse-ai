@@ -31,13 +31,16 @@ export default async function Page() {
             <FaSquarePlus color={"lightGrey"} size={30} />
             <p className="text-semibold text-zinc-800">Create a Course</p>
           </Link>
-        </div>
-
-        <div>
-          {data.length > 0 &&
-            data.map((course) => (
-              <CourseCard key={course.id} title={course.title} id={course.id} />
-            ))}
+          <div className="flex max-w-4xl gap-10 pt-12">
+            {data.length > 0 &&
+              data.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  title={course.title}
+                  id={course.id}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
