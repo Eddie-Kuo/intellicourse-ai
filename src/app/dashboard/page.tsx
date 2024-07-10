@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import CourseCard from "@/components/CourseCard";
 
-export default async function DashboardPage() {
+export default async function Page() {
   const user = await currentUser();
 
   if (!user) {

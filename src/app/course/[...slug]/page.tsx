@@ -6,7 +6,7 @@ type PageProps = {
   };
 };
 
-export default function CoursePage({ params: { slug } }: PageProps) {
+export default function Page({ params: { slug } }: PageProps) {
   const [courseId] = slug;
 
   return <div>Course: {courseId}</div>;
