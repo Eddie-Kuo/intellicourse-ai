@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import Link from "next/link";
+import { getCourseList } from "@/database/queries/course";
+import { useUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
 
-function Page() {
+export default async function Page() {
+  const user = await currentUser();
+
+  if (!user) {
+    redirect("/sign-in");
+  }
+
+  const data = await getCourseList(user.id);
+  console.log(data);
+
   return (
     <div className="flex h-screen bg-zinc-100">
       {/* Content Container*/}
@@ -24,5 +37,3 @@ function Page() {
     </div>
   );
 }
-
-export default Page;
