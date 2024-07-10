@@ -8,5 +8,5 @@ export async function getCourseList(userId: string) {
     .from(courses)
     .where(eq(courses.userId, userId));
 
-  console.log(result);
+  return result;
 }

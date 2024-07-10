@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import Link from "next/link";
 import { getCourseList } from "@/database/queries/course";
-import { useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -14,7 +12,7 @@ export default async function Page() {
   }
 
   const data = await getCourseList(user.id);
-  console.log(data);
+  console.log("data", data);
 
   return (
     <div className="flex h-screen bg-zinc-100">
