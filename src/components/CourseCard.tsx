@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React from "react";
 
-type CourseProps = {
+type CourseCardProps = {
   title: string;
   id: number;
 };
 
-export default function CourseCard({ title, id }: CourseProps) {
+export default function CourseCard({ title, id }: CourseCardProps) {
   return (
     <Link
       href={`/course/${id}`}

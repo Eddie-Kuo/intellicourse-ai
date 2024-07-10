@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
 import CourseCard from "@/components/CourseCard";
 
-export default async function Page() {
+export default async function DashboardPage() {
   const user = await currentUser();
 
   if (!user) {
@@ -25,7 +25,7 @@ export default async function Page() {
             Start by generating a new course or resuming where you left off!
           </p>
           <Link
-            href="/course/create"
+            href="/create"
             className="flex items-center gap-3 rounded-xl border-2 border-zinc-200 p-5 shadow-2xl"
           >
             <FaSquarePlus color={"lightGrey"} size={30} />
