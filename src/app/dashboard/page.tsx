@@ -31,6 +31,15 @@ export default async function Page() {
             <p className="text-semibold text-zinc-800">Create a Course</p>
           </Link>
         </div>
+
+        <div>
+          {data.length > 0 &&
+            data.map((course) => (
+              <div key={course.id}>
+                <p>{course.title}</p>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
