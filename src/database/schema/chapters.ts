@@ -6,15 +6,20 @@
 // unitId <> units.id
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { unitsTable } from "./units";
+import { units } from "./units";
 
-export const chaptersTable = sqliteTable("chapters", {
+export const chapters = sqliteTable("chapters", {
   id: integer("id").primaryKey(),
   chapter: integer("chapter").notNull(),
   title: text("title").notNull(),
   ytVideoId: text("yt_video_id").notNull(),
   ytVideoSummary: text("yt_video_summary").notNull(),
+  question: text("question").notNull(),
+  answer: text("answer"),
+  optionOne: text("option_one"),
+  optionTwo: text("option_two"),
+  optionThree: text("option_three"),
   unitId: integer("unit_id")
     .notNull()
-    .references(() => unitsTable.id, { onDelete: "cascade" }),
+    .references(() => units.id, { onDelete: "cascade" }),
 });

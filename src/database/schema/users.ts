@@ -4,7 +4,7 @@
 // email - text
 // clerk user id - text
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-export const usersTable = sqliteTable("users", {
+export const users = sqliteTable("users", {
   id: integer("id").primaryKey(),
   firstName: text("first_name").notNull(),
   lastName: text("last_name").notNull(),
@@ -12,4 +12,4 @@ export const usersTable = sqliteTable("users", {
   clerkUserId: text("clerk_user_id").unique().notNull(),
 });
 
-export type InsertUser = typeof usersTable.$inferInsert;
+export type InsertUser = typeof users.$inferInsert;

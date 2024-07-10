@@ -2,8 +2,7 @@ import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { db } from "@/database";
-import { usersTable } from "@/database/schema/users";
-import { createUser } from "@/database/queries/users";
+import { users } from "@/database/schema/users";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -69,7 +68,7 @@ export async function POST(req: Request) {
 
     try {
       console.log("hello");
-      const newUser = await db.insert(usersTable).values(user);
+      const newUser = await db.insert(users).values(user);
       console.log(newUser);
     } catch (error) {
       return new Response("Failed to create a user in database", {

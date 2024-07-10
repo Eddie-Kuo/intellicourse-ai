@@ -4,13 +4,13 @@
 // courseId <> courses.id
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { coursesTable } from "./courses";
+import { courses } from "./courses";
 
-export const unitsTable = sqliteTable("units", {
+export const units = sqliteTable("units", {
   id: integer("id").primaryKey(),
   unit: integer("unit").notNull(),
   title: text("title").notNull(),
   courseId: integer("course_id")
     .notNull()
-    .references(() => coursesTable.id, { onDelete: "cascade" }),
+    .references(() => courses.id, { onDelete: "cascade" }),
 });
