@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getCourseList } from "@/database/queries/course";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
+import CourseCard from "@/components/CourseCard";
 
 export default async function Page() {
   const user = await currentUser();
@@ -35,9 +36,7 @@ export default async function Page() {
         <div>
           {data.length > 0 &&
             data.map((course) => (
-              <div key={course.id}>
-                <p>{course.title}</p>
-              </div>
+              <CourseCard key={course.id} title={course.title} id={course.id} />
             ))}
         </div>
       </div>
