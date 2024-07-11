@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { useState } from "react";
 
-function Page() {
+export default function Page() {
   const [topic, setTopic] = useState("");
   const { user } = useUser();
 
@@ -42,5 +42,3 @@ function Page() {
     </div>
   );
 }
-
-export default Page;
