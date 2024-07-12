@@ -12,4 +12,4 @@ export const users = sqliteTable("users", {
   clerkUserId: text("clerk_user_id").unique().notNull(),
 });
 
-export type InsertUser = typeof users.$inferInsert;
+export type SelectUser = typeof users.$inferSelect;

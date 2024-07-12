@@ -3,6 +3,7 @@ import { getCourseDetails } from "@/database/queries/course";
 import { courses } from "@/database/schema/courses";
 import { eq } from "drizzle-orm";
 import React from "react";
+import CourseSideBar from "@/components/CourseSideBar";
 
 type PageProps = {
   params: {
@@ -13,9 +14,14 @@ type PageProps = {
 export default async function Page({ params: { slug } }: PageProps) {
   const [courseId] = slug;
 
-  const course = await getCourseDetails(courseId);
+  const courseUnits = await getCourseDetails(courseId);
 
-  console.log(course);
+  console.log(courseUnits);
 
-  return <div>Course: {courseId}</div>;
+  return (
+    <div>
+      Course: {courseId}
+      <CourseSideBar courseUnits={courseUnits} />
+    </div>
+  );
 }

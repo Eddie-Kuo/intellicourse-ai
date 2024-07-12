@@ -5,6 +5,7 @@
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { courses } from "./courses";
+import { users } from "@/database/schema/users";
 
 export const units = sqliteTable("units", {
   id: integer("id").primaryKey(),
@@ -14,3 +15,5 @@ export const units = sqliteTable("units", {
     .notNull()
     .references(() => courses.id, { onDelete: "cascade" }),
 });
+
+export type SelectUnit = typeof units.$inferSelect;

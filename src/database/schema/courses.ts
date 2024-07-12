@@ -16,3 +16,5 @@ export const courses = sqliteTable("courses", {
     .default(sql`(CURRENT_TIMESTAMP)`)
     .notNull(),
 });
+
+export type SelectCourse = typeof courses.$inferSelect;

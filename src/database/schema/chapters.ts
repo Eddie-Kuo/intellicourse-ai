@@ -23,3 +23,5 @@ export const chapters = sqliteTable("chapters", {
     .notNull()
     .references(() => units.id, { onDelete: "cascade" }),
 });
+
+export type SelectChapter = typeof chapters.$inferSelect;
