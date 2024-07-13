@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "..";
-import { courses } from "../schema/courses";
-import { units } from "../schema/units";
+import { units } from "@/database/schema/units";
+import { courses } from "@/database/schema/courses";
 
 export async function getCourseList(userId: string) {
   const result = await db
@@ -16,10 +16,12 @@ export async function getCourseList(userId: string) {
 export async function getCourseDetails(courseId: string) {
   const courseIdToNumber = parseInt(courseId);
 
-  const result = db
-    .select()
-    .from(units)
-    .where(eq(units.courseId, courseIdToNumber));
+  const result = await db.query.courses.findMany({
+    where: eq(courses.id, courseIdToNumber),
+    with: {
+      units: true,
+    },
+  });
 
   return result;
 }
