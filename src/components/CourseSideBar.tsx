@@ -1,21 +1,20 @@
 import React from "react";
 import { SelectUnit } from "@/database/schema/units";
 import { SelectCourse } from "@/database/schema/courses";
+import { SelectChapter } from "@/database/schema/chapters";
 
-type CourseSideBarProps = {
-  course: {
-    id: number;
-    title: string;
-    userId: string;
-    createdAt: string;
-    units: { id: number; title: string; unit: number; courseId: number }[];
-  }[];
-};
+interface CourseSideBarProps {
+  courseDetails: SelectCourse & {
+    units: (SelectUnit & {
+      chapters: SelectChapter[];
+    })[];
+  };
+}
 
-export default function CourseSideBar({ course }: CourseSideBarProps) {
-  console.log("Course details", course[0].units);
+export default function CourseSideBar({ courseDetails }: CourseSideBarProps) {
+  console.log("Course details", courseDetails.units);
 
-  const sortedUnits = course[0].units.sort((a, b) => a.unit - b.unit);
+  const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);
 
   return (
     <div className="bg-secondary fixed flex h-full max-w-md flex-col justify-center rounded-r-3xl p-6 sm:mt-0">

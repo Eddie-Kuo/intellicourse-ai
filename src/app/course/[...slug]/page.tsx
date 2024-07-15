@@ -1,6 +1,7 @@
 import React from "react";
 import { getCourseDetails } from "@/database/queries/course";
 import CourseSideBar from "@/components/CourseSideBar";
+import { redirect } from "next/navigation";
 
 type PageProps = {
   params: {
@@ -13,10 +14,15 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   const courseDetails = await getCourseDetails(courseId);
 
+  if (!courseDetails) {
+    console.log("Error: Unable to fetch course details");
+    redirect("/dashboard");
+  }
+
   return (
-    <div>
+    <div className="h-screen bg-zinc-100">
       Course: {courseId}
-      <CourseSideBar course={courseDetails} />
+      <CourseSideBar courseDetails={courseDetails} />
     </div>
   );
 }
