@@ -9,9 +9,13 @@ interface CourseSideBarProps {
       chapters: SelectChapter[];
     })[];
   };
+  currentChapter: SelectChapter;
 }
 
-export default function CourseSideBar({ courseDetails }: CourseSideBarProps) {
+export default function CourseSideBar({
+  courseDetails,
+  currentChapter,
+}: CourseSideBarProps) {
   console.log("Course details", courseDetails.units);
 
   const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);

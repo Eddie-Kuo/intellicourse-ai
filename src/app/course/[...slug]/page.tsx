@@ -10,7 +10,7 @@ type PageProps = {
 };
 
 export default async function Page({ params: { slug } }: PageProps) {
-  const [courseId] = slug;
+  const [courseId, unitIndex, chapterIndex] = slug;
 
   const courseDetails = await getCourseDetails(courseId);
 
@@ -19,10 +19,16 @@ export default async function Page({ params: { slug } }: PageProps) {
     redirect("/dashboard");
   }
 
+  const currentUnit = courseDetails.units[parseInt(unitIndex)];
+  const currentChapter = currentUnit.chapters[parseInt(chapterIndex)];
+
   return (
     <div className="h-screen bg-zinc-100">
       Course: {courseId}
-      <CourseSideBar courseDetails={courseDetails} />
+      <CourseSideBar
+        courseDetails={courseDetails}
+        currentChapter={currentChapter}
+      />
     </div>
   );
 }
