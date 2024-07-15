@@ -3,6 +3,7 @@ import { SelectUnit } from "@/database/schema/units";
 import { SelectCourse } from "@/database/schema/courses";
 import { SelectChapter } from "@/database/schema/chapters";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 interface CourseSideBarProps {
   courseDetails: SelectCourse & {
@@ -41,7 +42,11 @@ export default function CourseSideBar({
                       chapter.id === currentChapter && "bg-sky-400",
                     )}
                   >
-                    {chapter.title}
+                    <Link
+                      href={`/course/${courseDetails.id}/${unit.unit}/${chapter.chapter}`}
+                    >
+                      {chapter.title}
+                    </Link>
                   </div>
                 );
               })}
