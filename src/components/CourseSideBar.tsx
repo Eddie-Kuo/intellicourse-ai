@@ -17,12 +17,25 @@ export default function CourseSideBar({ courseDetails }: CourseSideBarProps) {
   const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);
 
   return (
-    <div className="bg-secondary fixed flex h-full max-w-md flex-col justify-center rounded-r-3xl p-6 sm:mt-0">
-      <h1 className="text-darkText text-3xl font-semibold uppercase">{}</h1>
-      {sortedUnits.map((unit, unitIndex) => {
+    <div className="fixed flex h-full max-w-md flex-col justify-center rounded-r-3xl bg-zinc-200 p-6 sm:mt-0">
+      <h1 className="text-darkText text-3xl font-semibold uppercase">
+        {courseDetails.title}
+      </h1>
+      {sortedUnits.map((unit) => {
         return (
-          <div key={unitIndex}>
-            <h2 className="text-lg font-semibold">{unit.title}</h2>
+          <div key={unit.unit}>
+            <h2 className="text-darkText text-lg font-semibold">
+              {unit.title}
+            </h2>
+            {unit.chapters
+              .sort((a, b) => a.chapter - b.chapter)
+              .map((chapter) => {
+                return (
+                  <div key={chapter.chapter} className="text-darkText">
+                    {chapter.title}
+                  </div>
+                );
+              })}
           </div>
         );
       })}
