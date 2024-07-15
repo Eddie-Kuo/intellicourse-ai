@@ -9,7 +9,7 @@ type CourseCardProps = {
 export default function CourseCard({ title, id }: CourseCardProps) {
   return (
     <Link
-      href={`/course/${id}/0/0`}
+      href={`/course/${id}/1/1`}
       className="flex h-36 w-56 items-center justify-center rounded-md border border-black/20 bg-slate-200 p-5 shadow-lg hover:border-black/50"
     >
       <p className="text-zinc-800">{title}</p>

@@ -10,7 +10,7 @@ type PageProps = {
 };
 
 export default async function Page({ params: { slug } }: PageProps) {
-  const [courseId, unitIndex, chapterIndex] = slug;
+  const [courseId, unitIndexParam, chapterIndexParam] = slug;
 
   const courseDetails = await getCourseDetails(courseId);
 
@@ -19,15 +19,29 @@ export default async function Page({ params: { slug } }: PageProps) {
     redirect("/dashboard");
   }
 
-  const currentUnit = courseDetails.units[parseInt(unitIndex)];
-  const currentChapter = currentUnit.chapters[parseInt(chapterIndex)];
+  const unitIndex = parseInt(unitIndexParam);
+  const chapterIndex = parseInt(chapterIndexParam);
+
+  // find target unit and chapter from params to pass into sidebar as state to show current chapter.
+  //todo: refactor to be more efficient. current problem is units and chapters don't populate database in order
+  const unit = courseDetails.units.find((unit) => unit.unit === unitIndex);
+  if (!unit) {
+    redirect("/dashboard");
+  }
+
+  const chapter = unit!.chapters.find(
+    (chapter) => chapter.chapter === chapterIndex,
+  );
+  if (!chapter) {
+    redirect("/dashboard");
+  }
 
   return (
     <div className="h-screen bg-zinc-100">
       Course: {courseId}
       <CourseSideBar
         courseDetails={courseDetails}
-        currentChapter={currentChapter}
+        currentChapter={chapter.id}
       />
     </div>
   );

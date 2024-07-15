@@ -2,6 +2,7 @@ import React from "react";
 import { SelectUnit } from "@/database/schema/units";
 import { SelectCourse } from "@/database/schema/courses";
 import { SelectChapter } from "@/database/schema/chapters";
+import { cn } from "@/lib/utils";
 
 interface CourseSideBarProps {
   courseDetails: SelectCourse & {
@@ -9,15 +10,13 @@ interface CourseSideBarProps {
       chapters: SelectChapter[];
     })[];
   };
-  currentChapter: SelectChapter;
+  currentChapter: number;
 }
 
 export default function CourseSideBar({
   courseDetails,
   currentChapter,
 }: CourseSideBarProps) {
-  console.log("Course details", courseDetails.units);
-
   const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);
 
   return (
@@ -35,7 +34,13 @@ export default function CourseSideBar({
               .sort((a, b) => a.chapter - b.chapter)
               .map((chapter) => {
                 return (
-                  <div key={chapter.chapter} className="text-darkText">
+                  <div
+                    key={chapter.chapter}
+                    className={cn(
+                      "mt-1 rounded-md bg-zinc-300 px-2 py-1",
+                      chapter.id === currentChapter && "bg-sky-400",
+                    )}
+                  >
                     {chapter.title}
                   </div>
                 );
