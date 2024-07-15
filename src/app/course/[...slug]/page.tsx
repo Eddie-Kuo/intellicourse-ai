@@ -1,4 +1,6 @@
 import React from "react";
+import { getCourseDetails } from "@/database/queries/course";
+import CourseSideBar from "@/components/CourseSideBar";
 
 type PageProps = {
   params: {
@@ -6,8 +8,15 @@ type PageProps = {
   };
 };
 
-export default function Page({ params: { slug } }: PageProps) {
+export default async function Page({ params: { slug } }: PageProps) {
   const [courseId] = slug;
 
-  return <div>Course: {courseId}</div>;
+  const courseDetails = await getCourseDetails(courseId);
+
+  return (
+    <div>
+      Course: {courseId}
+      <CourseSideBar course={courseDetails} />
+    </div>
+  );
 }

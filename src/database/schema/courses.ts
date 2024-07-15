@@ -4,7 +4,8 @@
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { users } from "./users";
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
+import { units } from "@/database/schema/units";
 
 export const courses = sqliteTable("courses", {
   id: integer("id").primaryKey(),
@@ -16,3 +17,11 @@ export const courses = sqliteTable("courses", {
     .default(sql`(CURRENT_TIMESTAMP)`)
     .notNull(),
 });
+
+// relations:
+// each course can have many units
+export const courseRelations = relations(courses, ({ many }) => ({
+  units: many(units),
+}));
+
+export type SelectCourse = typeof courses.$inferSelect;

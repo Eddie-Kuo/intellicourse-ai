@@ -7,6 +7,8 @@
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { units } from "./units";
+import { relations } from "drizzle-orm";
+import { courses } from "@/database/schema/courses";
 
 export const chapters = sqliteTable("chapters", {
   id: integer("id").primaryKey(),
@@ -23,3 +25,14 @@ export const chapters = sqliteTable("chapters", {
     .notNull()
     .references(() => units.id, { onDelete: "cascade" }),
 });
+
+// relations:
+// each chapter belongs to only one unit
+export const chapterRelations = relations(chapters, ({ one }) => ({
+  course: one(units, {
+    fields: [chapters.unitId],
+    references: [units.id],
+  }),
+}));
+
+export type SelectChapter = typeof chapters.$inferSelect;
