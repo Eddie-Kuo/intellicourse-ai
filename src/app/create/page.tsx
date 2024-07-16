@@ -6,7 +6,7 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 
-export enum Status {
+enum Status {
   loading = "loading",
   success = "success",
   error = "error",
