@@ -1,23 +1,60 @@
 "use client";
 
+import Loader from "@/components/Loader";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
+import { redirect } from "next/navigation";
 import { useState } from "react";
+
+export enum Status {
+  loading = "loading",
+  success = "success",
+  error = "error",
+}
 
 export default function Page() {
   const [topic, setTopic] = useState("");
   const { user } = useUser();
+  const [status, setStatus] = useState<Status>();
 
   const handleGenerateCourse = async () => {
-    const response = await axios.post("/api/course/createCourse", {
-      topic: topic,
-      userId: user!.id,
-    });
+    setStatus(Status.loading);
 
-    setTopic("");
-
-    return response.data;
+    try {
+      setTopic("");
+      await axios.post("/api/course/createCourse", {
+        topic: topic,
+        userId: user!.id,
+      });
+      setStatus(Status.success);
+    } catch (error) {
+      console.log("Error encountered with generating course. Please try again");
+      setStatus(Status.error);
+    }
   };
+
+  if (status === Status.error) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-zinc-100">
+        <p className="text-darkText">
+          Oops, something went wrong. Please navigate back to dashboard and try
+          again. Sorry for the inconvenience!
+        </p>
+      </div>
+    );
+  }
+
+  if (status === Status.loading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-zinc-100">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (status === Status.success) {
+    redirect("/dashboard");
+  }
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-zinc-100 pt-32">
