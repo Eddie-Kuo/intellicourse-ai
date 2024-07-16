@@ -41,7 +41,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#features">Features</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -72,13 +72,14 @@ _image coming soon_
   <ul>
     <li><a href="https://nestjs.com/">Nest.js</a></li>
     <li><a href="https://axios-http.com/docs/intro">Axios</a></li>
+    <li><a href="https://orm.drizzle.team/docs/overview">Drizzle ORM</a></li>
   </ul>
 </details>
 
 <details>
 <summary>Database</summary>
   <ul>
-    <li><a href="https://firebase.google.com/docs/">Firebase</a></li>
+    <li><a href="https://turso.tech/">Turso</a></li>
   </ul>
 </details>
 
@@ -120,14 +121,12 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 <!-- ROADMAP -->
 
-## Roadmap
+## Features
 
-- [ ] Feature 1
-- [ ] Feature 2
+- [ ] User can input a topic to learn more about in either a single word format like "Javascript" or in a "how to..." phrase.
+- [ ] User can navigate through the course by watching a related Youtbe video and taking an "end of chapter quiz" on what they learned.
 - [ ] Feature 3
   - [ ] Nested Feature
-
-See the [open issues](https://github.com/Eddie-Kuo/intellicourse-ai/issues) for a full list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -162,7 +161,7 @@ Email - edlankuo@gmail.com
 
 ## Acknowledgments
 
-- [Strict JSON for LLM Output Parsing](https://github.com/tanchongmin/strictjson)
+- []()
 - []()
 - []()
 
