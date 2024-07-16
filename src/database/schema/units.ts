@@ -5,9 +5,7 @@
 
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { courses } from "./courses";
-import { users } from "@/database/schema/users";
 import { relations } from "drizzle-orm";
-import course from "@/lib/validations/course";
 import { chapters } from "@/database/schema/chapters";
 
 export const units = sqliteTable("units", {
@@ -20,16 +18,11 @@ export const units = sqliteTable("units", {
 });
 
 // relations:
-// each unit belongs to only one chapter
-export const unitRelations = relations(units, ({ one }) => ({
+export const unitRelations = relations(units, ({ one, many }) => ({
   course: one(courses, {
     fields: [units.courseId],
     references: [courses.id],
   }),
-}));
-
-// each unit can have many chapters
-export const chapterRelations = relations(units, ({ many }) => ({
   chapters: many(chapters),
 }));
 

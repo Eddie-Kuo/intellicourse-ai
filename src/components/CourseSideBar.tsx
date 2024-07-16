@@ -1,29 +1,55 @@
 import React from "react";
 import { SelectUnit } from "@/database/schema/units";
 import { SelectCourse } from "@/database/schema/courses";
+import { SelectChapter } from "@/database/schema/chapters";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
-type CourseSideBarProps = {
-  course: {
-    id: number;
-    title: string;
-    userId: string;
-    createdAt: string;
-    units: { id: number; title: string; unit: number; courseId: number }[];
-  }[];
-};
+interface CourseSideBarProps {
+  courseDetails: SelectCourse & {
+    units: (SelectUnit & {
+      chapters: SelectChapter[];
+    })[];
+  };
+  currentChapter: number;
+}
 
-export default function CourseSideBar({ course }: CourseSideBarProps) {
-  console.log("Course details", course[0].units);
-
-  const sortedUnits = course[0].units.sort((a, b) => a.unit - b.unit);
+export default function CourseSideBar({
+  courseDetails,
+  currentChapter,
+}: CourseSideBarProps) {
+  const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);
 
   return (
-    <div className="bg-secondary fixed flex h-full max-w-md flex-col justify-center rounded-r-3xl p-6 sm:mt-0">
-      <h1 className="text-darkText text-3xl font-semibold uppercase">{}</h1>
-      {sortedUnits.map((unit, unitIndex) => {
+    <div className="fixed flex h-full max-w-md flex-col justify-center rounded-r-3xl bg-zinc-200 p-6 sm:mt-0">
+      <h1 className="text-darkText text-3xl font-semibold uppercase">
+        {courseDetails.title}
+      </h1>
+      {sortedUnits.map((unit) => {
         return (
-          <div key={unitIndex}>
-            <h2 className="text-lg font-semibold">{unit.title}</h2>
+          <div key={unit.unit}>
+            <h2 className="text-darkText text-lg font-semibold">
+              {unit.title}
+            </h2>
+            {unit.chapters
+              .sort((a, b) => a.chapter - b.chapter)
+              .map((chapter) => {
+                return (
+                  <div
+                    key={chapter.chapter}
+                    className={cn(
+                      "mt-1 rounded-md bg-zinc-300 px-2 py-1",
+                      chapter.id === currentChapter && "bg-sky-400",
+                    )}
+                  >
+                    <Link
+                      href={`/course/${courseDetails.id}/${unit.unit}/${chapter.chapter}`}
+                    >
+                      {chapter.title}
+                    </Link>
+                  </div>
+                );
+              })}
           </div>
         );
       })}

@@ -13,7 +13,6 @@ export default async function Page() {
   }
 
   const data = await getCourseList(user.id);
-  console.log("data", data);
 
   return (
     <div className="flex h-screen bg-zinc-100">
