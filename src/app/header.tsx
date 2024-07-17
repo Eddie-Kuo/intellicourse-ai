@@ -8,9 +8,9 @@ function Header() {
       <div className="mx-auto flex items-center justify-between self-center px-14">
         <Link href="/" className="flex items-center gap-5">
           <Image src="/images/logo.png" alt="app logo" width={60} height={60} />
-          <p className="text-2xl font-bold">IntelliCourse.AI</p>
+          <p className="text-secondary text-2xl font-bold">IntelliCourse.AI</p>
         </Link>
-        <div className="flex items-center gap-14">
+        <div className="text-secondary flex items-center gap-14">
           <p>About</p>
           <p>Pricing</p>
 

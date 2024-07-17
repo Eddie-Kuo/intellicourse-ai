@@ -2,6 +2,8 @@ import React from "react";
 import { getCourseDetails } from "@/database/queries/course";
 import CourseSideBar from "@/components/CourseSideBar";
 import { redirect } from "next/navigation";
+import VideoSummary from "@/components/VideoSummary";
+import Quiz from "@/components/Quiz";
 
 type PageProps = {
   params: {
@@ -29,7 +31,7 @@ export default async function Page({ params: { slug } }: PageProps) {
     redirect("/dashboard");
   }
 
-  const chapter = unit!.chapters.find(
+  const chapter = unit.chapters.find(
     (chapter) => chapter.chapter === chapterIndex,
   );
   if (!chapter) {
@@ -38,11 +40,20 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   return (
     <div className="h-screen bg-zinc-100">
-      Course: {courseId}
       <CourseSideBar
         courseDetails={courseDetails}
         currentChapter={chapter.id}
       />
+      <div className="ml-[450px] px-8">
+        <div className="flex">
+          <VideoSummary
+            chapter={chapter}
+            unitIndex={unitIndex}
+            chapterIndex={chapterIndex}
+          />
+          <Quiz chapter={chapter} />
+        </div>
+      </div>
     </div>
   );
 }
