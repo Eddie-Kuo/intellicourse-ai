@@ -22,9 +22,10 @@ export default function CourseSideBar({
 
   return (
     <div className="fixed flex h-full max-w-md flex-col justify-center gap-5 rounded-r-3xl bg-zinc-200 p-6 sm:mt-0">
-      <h1 className="text-3xl font-semibold uppercase text-sky-800">
+      <h1 className="text-3xl font-semibold uppercase text-slate-800">
         {courseDetails.title}
       </h1>
+      <div className="w-[90%] self-center border border-black/60" />
       {sortedUnits.map((unit) => {
         return (
           <div key={unit.unit}>

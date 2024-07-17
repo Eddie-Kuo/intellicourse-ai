@@ -10,7 +10,7 @@ function VideoSummary({ chapter, unitIndex, chapterIndex }: VideoSummary) {
   return (
     <div className="mt-44 flex-[2]">
       <div className="flex items-center gap-2">
-        <h4 className="text-xl  uppercase text-darkText">
+        <h4 className="text-xl text-darkText">
           Unit {unitIndex} - Chapter {chapterIndex}:
         </h4>
         <h1 className="text-xl font-semibold  tracking-wide text-darkText">

@@ -30,7 +30,7 @@ export default async function Page({ params: { slug } }: PageProps) {
     redirect("/dashboard");
   }
 
-  const chapter = unit!.chapters.find(
+  const chapter = unit.chapters.find(
     (chapter) => chapter.chapter === chapterIndex,
   );
   if (!chapter) {
@@ -39,7 +39,6 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   return (
     <div className="h-screen bg-zinc-100">
-      Course: {courseId}
       <CourseSideBar
         courseDetails={courseDetails}
         currentChapter={chapter.id}
