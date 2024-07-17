@@ -17,9 +17,11 @@ export default function Quiz({ chapter }: QuizProps) {
         <h1 className="font-semibold">{chapter.question}</h1>
         <div className="py-2"></div>
       </div>
-      <Button onClick={() => {}} className="mt-2 w-full">
-        Check Answer
-      </Button>
+      {chapter.question !== "No question for this chapter!" && (
+        <Button onClick={() => {}} className="mt-2 w-full">
+          Check Answer
+        </Button>
+      )}
     </div>
   );
 }
