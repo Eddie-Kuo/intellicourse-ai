@@ -3,6 +3,7 @@ import { getCourseDetails } from "@/database/queries/course";
 import CourseSideBar from "@/components/CourseSideBar";
 import { redirect } from "next/navigation";
 import VideoSummary from "@/components/VideoSummary";
+import Quiz from "@/components/Quiz";
 
 type PageProps = {
   params: {
@@ -50,6 +51,7 @@ export default async function Page({ params: { slug } }: PageProps) {
             unitIndex={unitIndex}
             chapterIndex={chapterIndex}
           />
+          <Quiz chapter={chapter} />
         </div>
       </div>
     </div>
