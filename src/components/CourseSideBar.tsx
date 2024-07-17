@@ -28,7 +28,9 @@ export default function CourseSideBar({
       {sortedUnits.map((unit) => {
         return (
           <div key={unit.unit}>
-            <h2 className="text-lg font-semibold text-sky-800">{unit.title}</h2>
+            <h2 className="text-lg font-semibold text-sky-800 ">
+              {unit.title}
+            </h2>
             {unit.chapters
               .sort((a, b) => a.chapter - b.chapter)
               .map((chapter) => {
