@@ -30,7 +30,7 @@ export default async function Page() {
             <FaSquarePlus color={"lightGrey"} size={30} />
             <p className="text-semibold text-zinc-800">Create a Course</p>
           </Link>
-          <div className="grid grid-cols-3 gap-5 py-10">
+          <div className="grid grid-cols-3 gap-3 py-10 md:grid-cols-4 lg:grid-cols-5">
             {data.length > 0 &&
               data.map((course) => (
                 <CourseCard
