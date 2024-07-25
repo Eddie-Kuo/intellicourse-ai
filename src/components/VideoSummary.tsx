@@ -8,12 +8,12 @@ type VideoSummary = {
 
 function VideoSummary({ chapter, unitIndex, chapterIndex }: VideoSummary) {
   return (
-    <div className="mt-44 flex-[2]">
+    <div className="flex-[3]">
       <div className="flex items-center gap-2">
-        <h4 className="text-xl text-darkText">
+        <h4 className="text-darkText text-xl">
           Unit {unitIndex} - Chapter {chapterIndex}:
         </h4>
-        <h1 className="text-xl font-semibold  tracking-wide text-darkText">
+        <h1 className="text-darkText text-xl  font-semibold tracking-wide">
           {chapter.title}
         </h1>
       </div>
@@ -24,8 +24,8 @@ function VideoSummary({ chapter, unitIndex, chapterIndex }: VideoSummary) {
         allowFullScreen
       />
       <div className="mt-4">
-        <h3 className="text-3xl font-semibold text-darkText">Summary</h3>
-        <p className="mt-2 text-darkText">{chapter.ytVideoSummary}</p>
+        <h3 className="text-darkText text-3xl font-semibold">Summary</h3>
+        <p className="text-darkText mt-2">{chapter.ytVideoSummary}</p>
       </div>
     </div>
   );

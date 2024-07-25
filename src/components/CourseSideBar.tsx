@@ -21,7 +21,7 @@ export default function CourseSideBar({
   const sortedUnits = courseDetails.units.sort((a, b) => a.unit - b.unit);
 
   return (
-    <div className="fixed flex h-full max-w-md flex-col justify-center gap-5 rounded-r-3xl bg-zinc-200 p-6 sm:mt-0">
+    <div className="flex max-w-sm flex-col justify-center gap-5 rounded-r-3xl bg-zinc-200 p-6 sm:mt-0">
       <h1 className="text-3xl font-semibold uppercase text-slate-800">
         {courseDetails.title}
       </h1>
@@ -46,7 +46,7 @@ export default function CourseSideBar({
                     <Link
                       href={`/course/${courseDetails.id}/${unit.unit}/${chapter.chapter}`}
                       className={cn(
-                        "font-medium text-darkText",
+                        "text-darkText font-medium",
                         chapter.id === currentChapter && "text-white",
                       )}
                     >

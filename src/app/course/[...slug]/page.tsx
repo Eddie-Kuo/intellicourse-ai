@@ -39,21 +39,20 @@ export default async function Page({ params: { slug } }: PageProps) {
   }
 
   return (
-    <div className="h-screen bg-zinc-100">
-      <CourseSideBar
-        courseDetails={courseDetails}
-        currentChapter={chapter.id}
+    <div className="flex gap-5 bg-zinc-100 py-32 pr-10">
+      <aside>
+        <CourseSideBar
+          courseDetails={courseDetails}
+          currentChapter={chapter.id}
+        />
+      </aside>
+
+      <VideoSummary
+        chapter={chapter}
+        unitIndex={unitIndex}
+        chapterIndex={chapterIndex}
       />
-      <div className="ml-[450px] px-8">
-        <div className="flex">
-          <VideoSummary
-            chapter={chapter}
-            unitIndex={unitIndex}
-            chapterIndex={chapterIndex}
-          />
-          <Quiz chapter={chapter} />
-        </div>
-      </div>
+      <Quiz chapter={chapter} />
     </div>
   );
 }
