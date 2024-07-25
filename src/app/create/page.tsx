@@ -53,6 +53,7 @@ export default function Page() {
   }
 
   if (status === Status.success) {
+    ("use server");
     redirect("/dashboard");
   }
 
