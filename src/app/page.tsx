@@ -30,7 +30,7 @@ export default function Home() {
                 OpenAI ✨
               </a>
             </span>
-            <h1 className="text-dark inline-block text-center text-4xl font-medium tracking-tighter lg:text-7xl">
+            <h1 className="text-darkText inline-block text-center text-4xl font-medium tracking-tighter lg:text-7xl">
               An Open Source AI-Powered{" "}
               <br className="hidden lg:inline-block" />
               Course Roadmap Generator
@@ -49,7 +49,7 @@ export default function Home() {
               <SignedIn>
                 <Link
                   href={"/dashboard"}
-                  className="group mb-2 me-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
+                  className="mb-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
                 >
                   <span className="flex items-center gap-1">
                     Get Started
@@ -60,7 +60,7 @@ export default function Home() {
               <SignedOut>
                 <Link
                   href={"/sign-in"}
-                  className="group mb-2 me-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
+                  className="mb-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
                 >
                   <span className="flex items-center gap-1">
                     Get Started
@@ -68,7 +68,7 @@ export default function Home() {
                   </span>
                 </Link>
               </SignedOut>
-              <div className="w-fit items-center">
+              <div className="items-center">
                 <Link
                   target="_blank"
                   href="https://github.com/Eddie-Kuo/intellicourse-ai"
