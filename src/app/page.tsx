@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Loader, StepForward } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -54,12 +55,17 @@ export default function Home() {
                 </span>
               </button>
               <div className="w-fit items-center">
-                <Button
-                  className="border-orange-500/50 bg-transparent px-4 py-7 text-center text-xl"
-                  variant={"outline"}
+                <Link
+                  target="_blank"
+                  href="https://github.com/Eddie-Kuo/intellicourse-ai"
                 >
-                  Star on Github ⭐️
-                </Button>
+                  <Button
+                    className="border-orange-500/50 px-4 py-7 text-center text-xl"
+                    variant="default"
+                  >
+                    Star on Github ⭐️
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
