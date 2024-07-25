@@ -58,9 +58,14 @@ export default function Page() {
 
   return (
     <div className="flex h-screen w-full flex-col items-center bg-zinc-100 pt-32">
-      <div className="flex flex-col justify-center gap-3">
-        <p className="text-zinc-800">Course creation page</p>
-        <p className="text-zinc-800">&quot;Text about what to do&quot;</p>
+      <div className="flex  flex-col justify-center gap-3">
+        <p className="text-lg font-semibold text-zinc-800">
+          Enter a topic you would like to learn more about!
+        </p>
+        <p className="text-sm text-zinc-600">
+          Can be in a single word format like &quot;JavaScript&quot;<br></br> or
+          in a how to phrase like: &quot;How to potty train a new puppy&quot;
+        </p>
         <div className="flex gap-3">
           <input
             onChange={(e) => setTopic(e.target.value)}

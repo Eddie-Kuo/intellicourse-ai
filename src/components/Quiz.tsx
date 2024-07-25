@@ -32,7 +32,7 @@ export default function Quiz({ chapter }: QuizProps) {
   };
 
   return (
-    <div className="ml-8 mt-52 flex-[1]">
+    <div className="ml-8 flex-1">
       <h1 className="text-lg font-semibold">Concept Check</h1>
 
       <div>

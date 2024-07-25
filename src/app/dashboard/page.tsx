@@ -15,7 +15,7 @@ export default async function Page() {
   const data = await getCourseList(user.id);
 
   return (
-    <div className="flex h-screen bg-zinc-100">
+    <div className="flex bg-zinc-100">
       {/* Content Container*/}
       <div className="mx-auto w-full p-20">
         <div className="flex flex-col items-start gap-4">
