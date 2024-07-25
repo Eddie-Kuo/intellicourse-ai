@@ -17,7 +17,7 @@ export default function Home() {
               <a
                 className="font-bold"
                 target="_blank"
-                href="https://convex.dev/c/todovex"
+                href="https://turso.tech/"
               >
                 Turso{" "}
               </a>
