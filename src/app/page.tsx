@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import { Loader, StepForward } from "lucide-react";
 import Link from "next/link";
 
@@ -45,15 +46,28 @@ export default function Home() {
               using AI.
             </h2>
             <div className="mt-12 flex flex-col gap-4">
-              <button
-                type="submit"
-                className="group mb-2 me-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:text-white dark:focus:ring-blue-800"
-              >
-                <span className="flex items-center gap-1">
-                  Get Started
-                  <StepForward />
-                </span>
-              </button>
+              <SignedIn>
+                <Link
+                  href={"/dashboard"}
+                  className="group mb-2 me-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
+                >
+                  <span className="flex items-center gap-1">
+                    Get Started
+                    <StepForward />
+                  </span>
+                </Link>
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  href={"/sign-in"}
+                  className="group mb-2 me-2 flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-8 py-4 text-xl font-medium text-gray-200 hover:text-white"
+                >
+                  <span className="flex items-center gap-1">
+                    Get Started
+                    <StepForward />
+                  </span>
+                </Link>
+              </SignedOut>
               <div className="w-fit items-center">
                 <Link
                   target="_blank"
