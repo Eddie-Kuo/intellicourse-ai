@@ -1,0 +1,21 @@
+name: Build and Push to GCP
+concurrency: production
+on:
+  push:
+    branches:
+      - main
+      - docker
+env:
+  DOCKER_REGISTRY: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.GOOGLE_PROJECT_ID }}/docker-private/${{ github.event.repository.name }}
+jobs:
+  build:
+    name: Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      DOCKER_IMAGE: ${{ steps.outputImage.outputs.DOCKER_IMAGE }}
+    steps:
+      - name: Checkout repository
+        uses: actions
