@@ -5,6 +5,7 @@ import { useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import { useState } from "react";
+import { navigate } from "../actions/navigate";
 
 enum Status {
   loading = "loading",
@@ -22,7 +23,7 @@ export default function Page() {
 
     try {
       setTopic("");
-      await axios.post("/api/course/createCourse", {
+      await axios.post("/api/createCourse", {
         topic: topic,
         userId: user!.id,
       });
@@ -53,8 +54,7 @@ export default function Page() {
   }
 
   if (status === Status.success) {
-    ("use server");
-    redirect("/dashboard");
+    navigate("dashboard");
   }
 
   return (
