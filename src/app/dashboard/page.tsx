@@ -15,7 +15,7 @@ export default async function Page() {
   const data = await getCourseList(user.id);
 
   return (
-    <div className="flex bg-zinc-100">
+    <div className="flex bg-gradient-to-r from-zinc-200 to-slate-300">
       {/* Content Container*/}
       <div className="mx-auto w-full p-20">
         <div className="flex flex-col items-start gap-4">
@@ -25,7 +25,7 @@ export default async function Page() {
           </p>
           <Link
             href="/create"
-            className="flex items-center gap-3 rounded-xl border-2 border-zinc-200 p-5 shadow-2xl"
+            className="flex items-center gap-3 rounded-xl p-5 shadow-2xl ring-1 ring-slate-400"
           >
             <FaSquarePlus color={"lightGrey"} size={30} />
             <p className="text-semibold text-zinc-800">Create a Course</p>
