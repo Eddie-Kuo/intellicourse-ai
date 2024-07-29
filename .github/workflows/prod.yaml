@@ -6,7 +6,7 @@ on:
       - main
       - docker
 env:
-  DOCKER_REGISTRY: ${{ vars.REGION }}-docker.pkg.dev/${{ inputs.GCP_PROJECT_ID }}/docker-private/${{ github.event.repository.name }}
+  DOCKER_REGISTRY: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/docker-private/${{ github.event.repository.name }}
 jobs:
   build:
     name: Docker Image
