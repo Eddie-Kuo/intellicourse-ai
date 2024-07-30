@@ -5,7 +5,7 @@ config({ path: ".env.local" });
 
 export default defineConfig({
   schema: "./src/database/schema/*",
-  out: "./drizzle",
+  out: "./migrations",
   dialect: "sqlite",
   driver: "turso",
   dbCredentials: {

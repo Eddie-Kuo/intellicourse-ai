@@ -5,7 +5,6 @@ import * as users from "./schema/users";
 import * as courses from "./schema/courses";
 import * as units from "./schema/units";
 import * as chapters from "./schema/chapters";
-import "dotenv/config";
 
 config({ path: ".env.local" });
 
