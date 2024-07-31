@@ -23,7 +23,7 @@ export default function Page() {
 
     try {
       setTopic("");
-      await axios.post("/api/createCourse", {
+      await axios.post("/api/course/createCourse", {
         topic: topic,
         userId: user!.id,
       });
