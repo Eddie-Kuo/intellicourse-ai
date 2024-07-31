@@ -6,12 +6,13 @@ import * as courses from "./schema/courses";
 import * as units from "./schema/units";
 import * as chapters from "./schema/chapters";
 
-config({ path: ".env" });
+config({ path: ".env.local" });
 
-const client = createClient({
+export const client = createClient({
   url: process.env.DATABASE_URL!,
   authToken: process.env.DATABASE_AUTH_TOKEN!,
 });
+
 export const db = drizzle(client, {
   schema: { ...users, ...courses, ...units, ...chapters },
 });
