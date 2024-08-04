@@ -11,14 +11,10 @@ function Header() {
           <p className="text-2xl font-bold text-secondary">IntelliCourse.AI</p>
         </Link>
         <div className="flex items-center gap-14 text-secondary">
-          <Link href="/about" className="flex items-center gap-5">
-            <p className="text-lg text-secondary">About</p>
-          </Link>
-          <p>Pricing</p>
           {/*  User is Signed in and there is an active session, display link to Dashboard & Profile*/}
           <SignedIn>
             <Link href="/dashboard">
-              <p>Dashboard</p>
+              <p className="text-lg text-secondary">Dashboard</p>
             </Link>
             <UserButton
               appearance={{
