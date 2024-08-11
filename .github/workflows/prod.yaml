@@ -66,6 +66,7 @@ jobs:
 
   deploy:
     name: Cloud Run
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -95,9 +96,9 @@ jobs:
         with:
           region: ${{ vars.REGION }}
           service: ${{ github.event.repository.name }}
-          image: ${{ inputs.DOCKER_IMAGE }}
-          flags: "--platform managed --allow-unauthenticated --memory=${{ inputs.RAM }} --cpu=${{ inputs.CPU }} --concurrency=${{ inputs.CONCURRENCY }} --max-instances=${{ inputs.MAX_INSTANCES }} --timeout=${{ inputs.TIMEOUT_SECS }}s --execution-environment=${{ inputs.EXECUTION_ENVIRONMENT }}"
-          env_vars: ${{ inputs.ENV_VARS }}
+          image: ${{ needs.build.outputs.DOCKER_IMAGE }}
+          flags: "--platform managed --allow-unauthenticated --memory=256Mi --cpu=1000m --concurrency=80 --max-instances=10 --timeout=600s --execution-environment=gen1"
+          # env_vars: ${{ inputs.ENV_VARS }}
 
       - name: Route traffic to service
         uses: google-github-actions/deploy-cloudrun@v2
