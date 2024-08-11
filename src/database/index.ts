@@ -6,7 +6,7 @@ import * as courses from "./schema/courses";
 import * as units from "./schema/units";
 import * as chapters from "./schema/chapters";
 
-config({ path: ".env.local" });
+// config({ path: ".env.local" });
 
 export const client = createClient({
   url: process.env.DATABASE_URL!,
