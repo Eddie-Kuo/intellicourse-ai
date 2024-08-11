@@ -63,3 +63,45 @@ jobs:
         id: outputImage
         run: |
           echo "DOCKER_IMAGE=${{ env.DOCKER_REGISTRY }}:${{ env.SHORT_SHA }}" >> $GITHUB_OUTPUT
+
+  deploy:
+    name: Cloud Run
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_lifetime: 300s
+
+      - name: Login to Artifact Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ vars.REGION }}-docker.pkg.dev
+          username: oauth2accesstoken
+          password: ${{ steps.auth.outputs.access_token }}
+
+      - name: Deploy to Cloud Run
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          region: ${{ vars.REGION }}
+          service: ${{ github.event.repository.name }}
+          image: ${{ inputs.DOCKER_IMAGE }}
+          flags: "--platform managed --allow-unauthenticated --memory=${{ inputs.RAM }} --cpu=${{ inputs.CPU }} --concurrency=${{ inputs.CONCURRENCY }} --max-instances=${{ inputs.MAX_INSTANCES }} --timeout=${{ inputs.TIMEOUT_SECS }}s --execution-environment=${{ inputs.EXECUTION_ENVIRONMENT }}"
+          env_vars: ${{ inputs.ENV_VARS }}
+
+      - name: Route traffic to service
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          region: ${{ vars.REGION }}
+          service: ${{ github.event.repository.name }}
+          revision_traffic: "LATEST=100" # percentage
