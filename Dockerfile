@@ -34,8 +34,6 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
-RUN npm rebuild
-
 # Production image, copy all the files and run next
 FROM base AS runner
 WORKDIR /app
