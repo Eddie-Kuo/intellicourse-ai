@@ -7,3 +7,8 @@ README.md
 !.next/static
 !.next/standalone
 .git
+.tmp/
+.cache/
+.git/
+build/
+data/
