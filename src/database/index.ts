@@ -9,7 +9,7 @@ import * as chapters from "./schema/chapters";
 config({ path: ".env" });
 
 export const client = createClient({
-  url: process.env.NEXT_PUBLIC_DATABASE_URL as string,
+  url: "libsql://intellicourse-ai-eddie-kuo.turso.io",
   authToken: process.env.DATABASE_AUTH_TOKEN as string,
 });
 
