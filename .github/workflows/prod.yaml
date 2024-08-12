@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - docker
+      - deployment
 env:
   DOCKER_REGISTRY: ${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/docker-private/${{ github.event.repository.name }}
 jobs:
