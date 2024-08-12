@@ -16,6 +16,8 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
+ARG DATABASE_URL
+
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
