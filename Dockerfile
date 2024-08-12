@@ -1,4 +1,4 @@
-FROM node:20-slim AS base
+FROM node:20-alpine AS base
 
 FROM base AS builder
 
@@ -15,6 +15,8 @@ RUN npm run build
 
 FROM base AS runner
 WORKDIR /app
+
+ARG DATABASE_URL
 
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production

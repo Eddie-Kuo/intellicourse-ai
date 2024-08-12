@@ -6,11 +6,11 @@ import * as courses from "./schema/courses";
 import * as units from "./schema/units";
 import * as chapters from "./schema/chapters";
 
-config({ path: ".env.local" });
+config({ path: ".env" });
 
 export const client = createClient({
-  url: process.env.DATABASE_URL!,
-  authToken: process.env.DATABASE_AUTH_TOKEN!,
+  url: process.env.NEXT_PUBLIC_DATABASE_URL as string,
+  authToken: process.env.DATABASE_AUTH_TOKEN as string,
 });
 
 export const db = drizzle(client, {
