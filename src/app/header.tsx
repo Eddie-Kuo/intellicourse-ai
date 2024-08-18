@@ -8,13 +8,17 @@ function Header() {
       <div className="mx-auto flex items-center justify-between self-center px-14">
         <Link href="/" className="flex items-center gap-5">
           <Image src="/images/logo.png" alt="app logo" width={60} height={60} />
-          <p className="text-2xl font-bold text-secondary">IntelliCourse.AI</p>
+          <p className="hidden text-2xl font-bold text-secondary md:block">
+            IntelliCourse.AI
+          </p>
         </Link>
         <div className="flex items-center gap-14 text-secondary">
           {/*  User is Signed in and there is an active session, display link to Dashboard & Profile*/}
           <SignedIn>
             <Link href="/dashboard">
-              <p className="text-lg text-secondary">Dashboard</p>
+              <p className="hidden text-lg text-secondary md:block">
+                Dashboard
+              </p>
             </Link>
             <UserButton
               appearance={{
@@ -27,9 +31,9 @@ function Header() {
             <Link
               title="Sign In"
               href="/sign-in"
-              className="rounded-xl bg-sky-600 px-4 py-2 hover:bg-sky-700"
+              className="rounded-xl bg-gradient-to-br from-purple-600 to-orange-600 px-4 py-2"
             >
-              <p>Sign In</p>
+              <p className="text-zinc-200 hover:text-white">Sign In</p>
             </Link>
           </SignedOut>
         </div>
