@@ -9,6 +9,25 @@ export default function Home() {
       <div className="container relative m-0 mx-auto py-10 md:px-10">
         <div className="w-full px-4 pt-12 md:px-4 lg:px-8 xl:px-10 2xl:px-0">
           <div className="flex h-full w-full flex-col items-center justify-center">
+            <div className="my-10 flex-col text-center">
+              <span className="text-3xl font-bold text-red-500">
+                Apologies for the inconvenience:
+              </span>
+              <h2>
+                Currently working through some bugs within the site and will be
+                fixed momentarily. Thank you for your patience!
+              </h2>
+              <p className="mb-2">
+                In the mean time, feel free to test out a preview of what a
+                course looks like!
+              </p>
+              <Link
+                className="rounded-full bg-orange-600/80 px-3 py-2 font-semibold text-white"
+                href={"/course/1/1/1"}
+              >
+                JavaScript Course
+              </Link>
+            </div>
             <span
               rel="noreferrer"
               className="mb-6 cursor-pointer rounded-2xl border border-black px-4 py-1 text-center text-xs text-slate-600 transition duration-300 ease-in-out hover:text-slate-700 sm:text-base"
@@ -30,7 +49,7 @@ export default function Home() {
                 OpenAI ✨
               </a>
             </span>
-            <h1 className="text-darkText inline-block text-center text-4xl font-medium tracking-tighter lg:text-7xl">
+            <h1 className="inline-block text-center text-4xl font-medium tracking-tighter text-darkText lg:text-7xl">
               An Open Source AI-Powered{" "}
               <br className="hidden lg:inline-block" />
               Course Roadmap Generator

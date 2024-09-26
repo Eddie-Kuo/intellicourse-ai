@@ -8,11 +8,12 @@ import CourseCard from "@/components/CourseCard";
 export default async function Page() {
   const user = await currentUser();
 
-  if (!user) {
-    redirect("/sign-in");
-  }
+  // Todo: remove auth for now to allow users to test out a course
+  // if (!user) {
+  //   redirect("/sign-in");
+  // }
 
-  const data = await getCourseList(user.id);
+  const data = await getCourseList(user!.id);
 
   return (
     <div className="h-full min-h-screen bg-gradient-to-r from-zinc-200 to-slate-300">
