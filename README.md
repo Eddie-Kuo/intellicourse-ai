@@ -15,7 +15,7 @@
     <a href="https://github.com/Eddie-Kuo/intellicourse-ai"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Eddie-Kuo/intellicourse-ai">View Demo</a>
+    <a href="https://intellicourse-ai.vercel.app">View Demo</a>
     ·
     <a href="https://github.com/Eddie-Kuo/intellicourse-ai/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
