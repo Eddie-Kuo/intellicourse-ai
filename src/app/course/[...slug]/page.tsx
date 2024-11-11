@@ -39,7 +39,7 @@ export default async function Page({ params: { slug } }: PageProps) {
   }
 
   return (
-    <div className="flex h-screen gap-5 bg-gradient-to-r from-zinc-200 to-slate-300 py-8 pr-10">
+    <div className="flex h-screen gap-5 py-8 pr-10">
       <aside>
         <CourseSideBar
           courseDetails={courseDetails}

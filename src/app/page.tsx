@@ -5,32 +5,13 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="h-full min-h-screen bg-gradient-to-r from-zinc-200 to-slate-300">
+    <main className="h-full min-h-screen ">
       <div className="container relative m-0 mx-auto py-10 md:px-10">
         <div className="w-full px-4 pt-12 md:px-4 lg:px-8 xl:px-10 2xl:px-0">
           <div className="flex h-full w-full flex-col items-center justify-center">
-            {/* <div className="my-10 flex-col text-center">
-              <span className="text-3xl font-bold text-red-500">
-                Apologies for the inconvenience:
-              </span>
-              <h2>
-                Currently working through some bugs within the site and will be
-                fixed momentarily. Thank you for your patience!
-              </h2>
-              <p className="mb-2">
-                In the mean time, feel free to test out a preview of what a
-                course looks like!
-              </p>
-              <Link
-                className="rounded-full bg-orange-600/80 px-3 py-2 font-semibold text-white"
-                href={"/course/1/1/1"}
-              >
-                JavaScript Course
-              </Link>
-            </div> */}
             <span
               rel="noreferrer"
-              className="mb-6 cursor-pointer rounded-2xl border border-black px-4 py-1 text-center text-xs text-slate-600 transition duration-300 ease-in-out hover:text-slate-700 sm:text-base"
+              className="mb-6 cursor-pointer rounded-2xl border px-4 py-1 text-center text-xs transition duration-300 ease-in-out hover:text-slate-700 sm:text-base"
             >
               Powered by{" "}
               <a
@@ -49,22 +30,22 @@ export default function Home() {
                 OpenAI ✨
               </a>
             </span>
-            <h1 className="inline-block text-center text-4xl font-medium tracking-tighter text-darkText lg:text-7xl">
-              An Open Source AI-Powered{" "}
-              <br className="hidden lg:inline-block" />
-              Course Roadmap Generator
-            </h1>
-            <h2 className="mt-8 text-center text-xl font-light tracking-tight lg:text-3xl">
-              Intellicourse seamlessly{" "}
-              <span className="px-1 font-bold">
-                generates you a custom course
-              </span>{" "}
-              with
-              <br className="hidden lg:inline-block" />
-              <span className="px-1 font-bold">detailed course material</span>
-              using AI.
-            </h2>
-            <div className="mt-12 flex flex-col gap-4">
+
+            <div className="flex flex-col space-y-6 text-center">
+              <div className="mx-auto text-center text-2xl font-bold md:text-6xl">
+                <h1>Transform your learning journey,</h1>
+                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text px-2 text-transparent">
+                  with custom AI-generated roadmaps.
+                </span>
+              </div>
+
+              <p className="mx-auto max-w-2xl text-xs text-muted-foreground md:text-xl">
+                Type any topic and watch the transformation. Our AI will create
+                a personalized roadmap with detailed units and chapters just for
+                you.
+              </p>
+            </div>
+            <div className="mt-12 flex flex-col justify-center gap-4">
               <SignedIn>
                 <Link
                   href={"/dashboard"}

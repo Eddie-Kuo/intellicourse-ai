@@ -36,7 +36,7 @@ export default function Page() {
 
   if (status === Status.error) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-r from-zinc-200 to-slate-300">
+      <div className="flex h-screen items-center justify-center">
         <p className="text-darkText">
           Oops, something went wrong. Please navigate back to dashboard and try
           again. Sorry for the inconvenience!
@@ -47,7 +47,7 @@ export default function Page() {
 
   if (status === Status.loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-r from-zinc-200 to-slate-300">
+      <div className="flex h-screen items-center justify-center">
         <Loader />
       </div>
     );
@@ -58,9 +58,9 @@ export default function Page() {
   }
 
   return (
-    <div className="flex h-screen w-full flex-col items-center bg-gradient-to-r from-zinc-200 to-slate-300 pt-32">
+    <div className="flex h-screen w-full flex-col items-center pt-32">
       <div className="flex  flex-col justify-center gap-3">
-        <p className="text-lg font-semibold text-zinc-800">
+        <p className="text-lg font-semibold ">
           Enter a topic you would like to learn more about!
         </p>
         <p className="text-sm text-zinc-600">
@@ -72,7 +72,7 @@ export default function Page() {
             onChange={(e) => setTopic(e.target.value)}
             value={topic}
             placeholder="enter topic"
-            className="ring-slate rounded-lg bg-gray-300 px-4 py-2 text-zinc-800 ring-1"
+            className="ring-slate rounded-lg bg-gray-300 px-4 py-2  ring-1"
           />
           <button
             onClick={handleGenerateCourse}
