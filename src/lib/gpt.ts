@@ -58,7 +58,7 @@ export async function generateSummary(
   system_prompt: string,
   user_prompt: string,
   model: string = "gpt-3.5-turbo",
-) {
+): Promise<string> {
   try {
     const response = await openai.chat.completions.create({
       temperature: 1,
@@ -71,6 +71,10 @@ export async function generateSummary(
         { role: "user", content: user_prompt.toString() },
       ],
     });
+
+    if (!response.choices[0].message.content) {
+      return "";
+    }
 
     return response.choices[0].message.content;
   } catch (error) {
