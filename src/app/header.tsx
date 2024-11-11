@@ -17,9 +17,7 @@ function Header() {
           {/*  User is Signed in and there is an active session, display link to Dashboard & Profile*/}
           <SignedIn>
             <Link href="/dashboard">
-              <p className="hidden text-lg text-secondary md:block">
-                Dashboard
-              </p>
+              <p className="hidden text-lg md:block">Dashboard</p>
             </Link>
             <UserButton
               appearance={{
