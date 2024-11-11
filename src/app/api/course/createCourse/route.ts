@@ -127,8 +127,8 @@ async function generateSummaryFromTranscript(
   transcript: string,
 ): Promise<string> {
   if (transcript.length) {
-    let maxLength = 500;
-    transcript = transcript.split(" ").slice(0, maxLength).join(" ");
+    // let maxLength = 500;
+    // transcript = transcript.split(" ").slice(0, maxLength).join(" ");
     return await generateSummary(
       "You are an AI capable of summarizing a youtube transcript",
       `Summarize the following video transcript in 250 words or less: ${transcript}. Do not talk about the sponsors, anything unrelated to the main topic, or introduce what the summary is about.`,
