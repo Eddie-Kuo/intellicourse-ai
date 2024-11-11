@@ -9,7 +9,7 @@ export default function Home() {
       <div className="container relative m-0 mx-auto py-10 md:px-10">
         <div className="w-full px-4 pt-12 md:px-4 lg:px-8 xl:px-10 2xl:px-0">
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <div className="my-10 flex-col text-center">
+            {/* <div className="my-10 flex-col text-center">
               <span className="text-3xl font-bold text-red-500">
                 Apologies for the inconvenience:
               </span>
@@ -27,7 +27,7 @@ export default function Home() {
               >
                 JavaScript Course
               </Link>
-            </div>
+            </div> */}
             <span
               rel="noreferrer"
               className="mb-6 cursor-pointer rounded-2xl border border-black px-4 py-1 text-center text-xs text-slate-600 transition duration-300 ease-in-out hover:text-slate-700 sm:text-base"
