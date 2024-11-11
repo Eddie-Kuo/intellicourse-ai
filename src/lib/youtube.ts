@@ -7,19 +7,24 @@ import { YoutubeTranscript } from "youtube-transcript";
 import { gpt } from "./gpt";
 
 export async function getYoutubeVideoId(searchQuery: string) {
-  // hello world => hello+world
   searchQuery = encodeURIComponent(searchQuery);
 
-  const { data } = await axios.get(
-    `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_API}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`,
-  );
+  try {
+    const { data } = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search?key=${process.env.YOUTUBE_API}&q=${searchQuery}&videoDuration=medium&videoEmbeddable=true&type=video&maxResults=5`,
+    );
 
-  if (!data) {
-    console.log("Youtube Search Failed!");
-    return;
+    if (!data) {
+      console.log("Youtube Search Failed!");
+      return;
+    }
+
+    console.log("YouTube Video ID Retrieved:", data.items[0].id.videoId);
+    return data;
+  } catch (error) {
+    console.error("Error fetching YouTube Video ID:", error);
+    throw error;
   }
-
-  return data;
 }
 
 export async function getYoutubeVideoTranscript(videoId: string) {
@@ -28,16 +33,15 @@ export async function getYoutubeVideoTranscript(videoId: string) {
       lang: "en",
     });
 
-    // Combine the transcript text
     let transcript = "";
     for (let t of transcriptArr) {
       transcript += t.text + " ";
     }
 
-    // Remove unnecessary line breaks
+    console.log("Transcript Retrieved for Video ID:", videoId);
     return transcript.replaceAll("\n", "");
   } catch (error) {
-    console.log("Error: Error when transcribing Youtube Video", error);
+    console.error("Error when transcribing YouTube Video:", error);
     return "";
   }
 }
