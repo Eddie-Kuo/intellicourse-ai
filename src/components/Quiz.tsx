@@ -42,7 +42,7 @@ export default function Quiz({ chapter }: QuizProps) {
           <>
             <div
               className={cn(
-                "mt-3 rounded-md border border-zinc-400 bg-zinc-500/40 p-4",
+                "mt-3 rounded-md border  p-4",
                 questionState === false && "bg-red-500",
                 questionState === true && "bg-green-500",
               )}

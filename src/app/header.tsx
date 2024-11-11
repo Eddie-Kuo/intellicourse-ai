@@ -13,7 +13,7 @@ function Header() {
           <Image src="/images/logo.png" alt="app logo" width={60} height={60} />
           <p className="hidden text-2xl font-bold md:block">IntelliCourse.AI</p>
         </Link>
-        <div className="flex items-center gap-3 text-secondary">
+        <div className="flex items-center gap-3">
           {/*  User is Signed in and there is an active session, display link to Dashboard & Profile*/}
           <SignedIn>
             <Link href="/dashboard">
