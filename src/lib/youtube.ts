@@ -6,6 +6,8 @@ import axios from "axios";
 import { YoutubeTranscript } from "youtube-transcript";
 import { gpt } from "./gpt";
 
+import { Innertube } from "youtubei.js";
+
 export async function getYoutubeVideoId(searchQuery: string) {
   // hello world => hello+world
   searchQuery = encodeURIComponent(searchQuery);
@@ -22,20 +24,27 @@ export async function getYoutubeVideoId(searchQuery: string) {
   return data;
 }
 
-export async function getYoutubeVideoTranscript(videoId: string) {
+export async function getYoutubeVideoTranscript(
+  videoId: string,
+): Promise<string> {
+  const youtube = await Innertube.create();
+
   try {
-    const transcriptArr = await YoutubeTranscript.fetchTranscript(videoId, {
-      lang: "en",
-    });
+    const videoInfo = await youtube.getInfo(videoId); // get video info by video Id
+    const transcriptData = await videoInfo.getTranscript();
+    console.log(
+      "🚀 ~ getYoutubeVideoTranscript ~ transcriptData:",
+      transcriptData.transcript.content?.body?.initial_segments
+        .map((segment) => segment.snippet.text)
+        .join(" "),
+    );
 
-    // Combine the transcript text
-    let transcript = "";
-    for (let t of transcriptArr) {
-      transcript += t.text + " ";
-    }
-
-    // Remove unnecessary line breaks
-    return transcript.replaceAll("\n", "");
+    return (
+      transcriptData.transcript.content?.body?.initial_segments
+        .map((segment) => segment.snippet.text)
+        .join(" ")
+        .replaceAll("\n", "") || ""
+    );
   } catch (error) {
     console.log("Error: Error when transcribing Youtube Video", error);
     return "";
