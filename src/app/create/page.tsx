@@ -29,7 +29,7 @@ export default function Page() {
       });
       setStatus(Status.success);
     } catch (error) {
-      console.log("Error encountered with generating course. Please try again");
+      console.log("Error encountered with generating course:", error);
       setStatus(Status.error);
     }
   };
