@@ -3,7 +3,6 @@
  */
 
 import axios from "axios";
-import { YoutubeTranscript } from "youtube-transcript";
 import { gpt } from "./gpt";
 
 import { Innertube } from "youtubei.js";
