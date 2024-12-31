@@ -3,7 +3,6 @@
 import Loader from "@/components/Loader";
 import { useUser } from "@clerk/nextjs";
 import axios from "axios";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import { navigate } from "../actions/navigate";
 
@@ -18,15 +17,26 @@ export default function Page() {
   const { user } = useUser();
   const [status, setStatus] = useState<Status>();
 
+  console.log(process.env.API_URL);
+
   const handleGenerateCourse = async () => {
     setStatus(Status.loading);
 
     try {
       setTopic("");
-      await axios.post("/api/course/createCourse", {
-        topic: topic,
-        userId: user!.id,
-      });
+      await axios.post(
+        // `${process.env.API_URL}/course`,
+        "http://localhost:3000/course",
+        {
+          topic,
+          // userId: user!.id,
+        },
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        },
+      );
       setStatus(Status.success);
     } catch (error) {
       console.log("Error encountered with generating course:", error);
