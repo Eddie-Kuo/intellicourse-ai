@@ -7,38 +7,44 @@ import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Label } from "./ui/label";
 
-type QuizProps = {
-  chapter: SelectChapter;
-};
+interface QuizProps {
+  questions: {
+    id: string;
+    chapterId: string;
+    question: string;
+    answer: string;
+    options: string;
+  }[];
+}
 
-export default function Quiz({ chapter }: QuizProps) {
+export default function Quiz({ questions }: QuizProps) {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const [questionState, setQuestionState] = useState<boolean | null>();
 
-  //todo: need to randomize answer since the correct answer choice is always the first option
-  const answerChoices = [
-    chapter.answer,
-    chapter.optionOne,
-    chapter.optionTwo,
-    chapter.optionThree,
-  ];
+  // Todo: Refactor backend logic - only one question is generated per chapter
+  const question = questions[0];
 
   const checkAnswer = () => {
-    if (selectedAnswer === chapter.answer) {
+    if (selectedAnswer === question.answer) {
       setQuestionState(true);
     } else {
       setQuestionState(false);
     }
   };
 
+  // shuffle the anser choices
+  const options: string[] = JSON.parse(question.options).sort(
+    () => Math.random() - 0.5,
+  );
+
   return (
     <div className="ml-8 flex-1">
       <h1 className="text-lg font-semibold">Concept Check</h1>
 
       <div>
-        <h1 className="font-semibold">{chapter.question}</h1>
+        <h1 className="font-semibold">{question.question}</h1>
 
-        {chapter.question !== "No question for this chapter!" && (
+        {question.question && (
           <>
             <div
               className={cn(
@@ -52,7 +58,7 @@ export default function Quiz({ chapter }: QuizProps) {
                   setSelectedAnswer(e);
                 }}
               >
-                {answerChoices.map((option, index) => {
+                {options.map((option, index) => {
                   return (
                     <div key={index} className="flex gap-2">
                       <RadioGroupItem value={option} id={index.toString()} />

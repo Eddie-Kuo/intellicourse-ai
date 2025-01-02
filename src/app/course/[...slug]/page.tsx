@@ -9,10 +9,35 @@ type PageProps = {
   };
 };
 
+export interface Course {
+  id: string;
+  title: string;
+  units: {
+    id: string;
+    title: string;
+    courseId: string;
+    chapters: {
+      id: string;
+      unitId: string;
+      title: string;
+      videoId: string;
+      youtubeSearchQuery: string;
+      summary: string;
+      questions: {
+        id: string;
+        chapterId: string;
+        question: string;
+        answer: string;
+        options: string;
+      }[];
+    }[];
+  }[];
+}
+
 export default async function Page({ params: { slug } }: PageProps) {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
 
-  const courseDetails = await fetch(
+  const courseDetails: Course = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/course/${courseId}`,
   )
     .then((res) => res.json())
@@ -31,7 +56,7 @@ export default async function Page({ params: { slug } }: PageProps) {
       <aside>
         <CourseSideBar
           courseDetails={courseDetails}
-          currentChapter={chapter.id}
+          currentChapter={chapterIndex}
         />
       </aside>
 
@@ -40,7 +65,7 @@ export default async function Page({ params: { slug } }: PageProps) {
         unitIndex={unitIndex}
         chapterIndex={chapterIndex}
       />
-      <Quiz chapter={chapter} />
+      <Quiz questions={chapter.questions} />
     </div>
   );
 }

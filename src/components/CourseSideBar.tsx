@@ -4,13 +4,10 @@ import { SelectCourse } from "@/database/schema/courses";
 import { SelectChapter } from "@/database/schema/chapters";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { Course } from "@/app/course/[...slug]/page";
 
 interface CourseSideBarProps {
-  courseDetails: SelectCourse & {
-    units: (SelectUnit & {
-      chapters: SelectChapter[];
-    })[];
-  };
+  courseDetails: Course;
   currentChapter: number;
 }
 
@@ -26,22 +23,22 @@ export default function CourseSideBar({
       <div className="w-[90%] self-center border border-black/60" />
       {courseDetails.units.map((unit, unitIndex) => {
         return (
-          <div key={unit.unit}>
+          <div key={unit.id}>
             <h2 className="text-lg font-semibold text-sky-800">{unit.title}</h2>
             {unit.chapters.map((chapter, chapterIndex) => {
               return (
                 <div
-                  key={chapter.chapter}
+                  key={chapter.id}
                   className={cn(
                     "mt-1 rounded-md bg-zinc-400 px-2 py-1",
-                    chapter.id === currentChapter && "bg-sky-400",
+                    chapterIndex === currentChapter && "bg-sky-400",
                   )}
                 >
                   <Link
                     href={`/course/${courseDetails.id}/${unitIndex}/${chapterIndex}`}
                     className={cn(
                       "font-medium text-darkText",
-                      chapter.id === currentChapter && "text-white",
+                      chapterIndex === currentChapter && "text-white",
                     )}
                   >
                     {chapter.title}
