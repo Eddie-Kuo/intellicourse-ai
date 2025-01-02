@@ -32,10 +32,7 @@ export default function Quiz({ questions }: QuizProps) {
     }
   };
 
-  // shuffle the anser choices
-  const options: string[] = JSON.parse(question.options).sort(
-    () => Math.random() - 0.5,
-  );
+  const options: string[] = JSON.parse(question.options);
 
   return (
     <div className="ml-8 flex-1">

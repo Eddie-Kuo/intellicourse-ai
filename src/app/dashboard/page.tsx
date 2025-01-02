@@ -10,6 +10,9 @@ interface Course {
 export default async function Page() {
   const courseList: Course[] = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/course/dashboard`,
+    {
+      cache: "no-cache",
+    },
   )
     .then((res) => res.json())
     .catch((error) => {
