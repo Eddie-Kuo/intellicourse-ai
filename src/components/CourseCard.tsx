@@ -3,7 +3,7 @@ import React from "react";
 
 type CourseCardProps = {
   title: string;
-  id: number;
+  id: string;
 };
 
 export default function CourseCard({ title, id }: CourseCardProps) {

@@ -1,19 +1,23 @@
 import { FaSquarePlus } from "react-icons/fa6";
 import Link from "next/link";
-import { getCourseList } from "@/database/queries/course";
-import { redirect } from "next/navigation";
-import { currentUser } from "@clerk/nextjs/server";
 import CourseCard from "@/components/CourseCard";
 
+interface Course {
+  id: string;
+  title: string;
+}
+
 export default async function Page() {
-  const user = await currentUser();
-
-  // Todo: remove auth for now to allow users to test out a course
-  // if (!user) {
-  //   redirect("/sign-in");
-  // }
-
-  const data = await getCourseList(user!.id);
+  const courseList: Course[] = await fetch(
+    "http://localhost:3000/course/dashboard",
+    {
+      cache: "force-cache", // requests will be memoized
+    },
+  )
+    .then((res) => res.json())
+    .catch((error) => {
+      throw new Error("Failed to fetch course list", error);
+    });
 
   return (
     <div className="h-full min-h-screen bg-gradient-to-r from-zinc-200 to-slate-300">
@@ -33,8 +37,8 @@ export default async function Page() {
               <p className="text-semibold text-zinc-800">Create a Course</p>
             </Link>
             <div className="gap-3 py-10 sm:grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-              {data.length > 0 &&
-                data.map((course) => (
+              {courseList.length > 0 &&
+                courseList.map((course) => (
                   <CourseCard
                     key={course.id}
                     title={course.title}
