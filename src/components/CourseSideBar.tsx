@@ -1,14 +1,11 @@
 import React from "react";
-import { SelectUnit } from "@/database/schema/units";
-import { SelectCourse } from "@/database/schema/courses";
-import { SelectChapter } from "@/database/schema/chapters";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Course } from "@/app/course/[...slug]/page";
+import { Course } from "@/types/course";
 
 interface CourseSideBarProps {
   courseDetails: Course;
-  currentChapter: number;
+  currentChapter: string;
 }
 
 export default function CourseSideBar({
@@ -31,14 +28,14 @@ export default function CourseSideBar({
                   key={chapter.id}
                   className={cn(
                     "mt-1 rounded-md bg-zinc-400 px-2 py-1",
-                    chapterIndex === currentChapter && "bg-sky-400",
+                    chapter.id === currentChapter && "bg-sky-400",
                   )}
                 >
                   <Link
                     href={`/course/${courseDetails.id}/${unitIndex}/${chapterIndex}`}
                     className={cn(
                       "font-medium text-darkText",
-                      chapterIndex === currentChapter && "text-white",
+                      chapter.id === currentChapter && "text-white",
                     )}
                   >
                     {chapter.title}

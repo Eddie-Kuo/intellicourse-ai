@@ -2,37 +2,13 @@ import React from "react";
 import CourseSideBar from "@/components/CourseSideBar";
 import VideoSummary from "@/components/VideoSummary";
 import Quiz from "@/components/Quiz";
+import { Course } from "@/types/course";
 
 type PageProps = {
   params: {
     slug: string[];
   };
 };
-
-export interface Course {
-  id: string;
-  title: string;
-  units: {
-    id: string;
-    title: string;
-    courseId: string;
-    chapters: {
-      id: string;
-      unitId: string;
-      title: string;
-      videoId: string;
-      youtubeSearchQuery: string;
-      summary: string;
-      questions: {
-        id: string;
-        chapterId: string;
-        question: string;
-        answer: string;
-        options: string;
-      }[];
-    }[];
-  }[];
-}
 
 export default async function Page({ params: { slug } }: PageProps) {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
@@ -56,7 +32,7 @@ export default async function Page({ params: { slug } }: PageProps) {
       <aside>
         <CourseSideBar
           courseDetails={courseDetails}
-          currentChapter={chapterIndex}
+          currentChapter={chapter.id}
         />
       </aside>
 
