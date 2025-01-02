@@ -17,7 +17,7 @@ export default function Page() {
   const { user } = useUser();
   const [status, setStatus] = useState<Status>();
 
-  console.log(process.env.API_URL);
+  const databaseURL = "http://localhost:3000";
 
   const handleGenerateCourse = async () => {
     setStatus(Status.loading);
@@ -25,8 +25,8 @@ export default function Page() {
     try {
       setTopic("");
       await axios.post(
-        // `${process.env.API_URL}/course`,
-        "http://localhost:3000/course",
+        `${databaseURL}/course`,
+        // "http://localhost:3000/course",
         {
           topic,
           // userId: user!.id,
