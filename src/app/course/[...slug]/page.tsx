@@ -1,7 +1,5 @@
 import React from "react";
-import { getCourseDetails } from "@/database/queries/course";
 import CourseSideBar from "@/components/CourseSideBar";
-import { redirect } from "next/navigation";
 import VideoSummary from "@/components/VideoSummary";
 import Quiz from "@/components/Quiz";
 
@@ -14,29 +12,19 @@ type PageProps = {
 export default async function Page({ params: { slug } }: PageProps) {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
 
-  const courseDetails = await getCourseDetails(courseId);
-
-  if (!courseDetails) {
-    console.log("Error: Unable to fetch course details");
-    redirect("/dashboard");
-  }
+  const courseDetails = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/course/${courseId}`,
+  )
+    .then((res) => res.json())
+    .catch((error) => {
+      throw new Error("Error getting course by course ID", error);
+    });
 
   const unitIndex = parseInt(unitIndexParam);
   const chapterIndex = parseInt(chapterIndexParam);
 
-  // find target unit and chapter from params to pass into sidebar as state to show current chapter.
-  //todo: refactor to be more efficient. current problem is units and chapters don't populate database in order
-  const unit = courseDetails.units.find((unit) => unit.unit === unitIndex);
-  if (!unit) {
-    redirect("/dashboard");
-  }
-
-  const chapter = unit.chapters.find(
-    (chapter) => chapter.chapter === chapterIndex,
-  );
-  if (!chapter) {
-    redirect("/dashboard");
-  }
+  const unit = courseDetails.units[unitIndex];
+  const chapter = unit.chapters[chapterIndex];
 
   return (
     <div className="flex h-screen gap-5 py-8 pr-10">

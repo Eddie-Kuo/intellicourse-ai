@@ -9,7 +9,6 @@ interface Course {
 
 export default async function Page() {
   const courseList: Course[] = await fetch(
-    // "http://localhost:3000/api/course/dashboard",
     `${process.env.NEXT_PUBLIC_API_URL}/course/dashboard`,
   )
     .then((res) => res.json())
