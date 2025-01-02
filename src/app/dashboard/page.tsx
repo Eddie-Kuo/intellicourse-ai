@@ -9,10 +9,7 @@ interface Course {
 
 export default async function Page() {
   const courseList: Course[] = await fetch(
-    "http://localhost:3000/course/dashboard",
-    {
-      cache: "force-cache", // requests will be memoized
-    },
+    `${process.env.NEXT_PUBLIC_API_URL}/course/dashboard`,
   )
     .then((res) => res.json())
     .catch((error) => {

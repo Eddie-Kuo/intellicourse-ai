@@ -17,19 +17,15 @@ export default function Page() {
   const { user } = useUser();
   const [status, setStatus] = useState<Status>();
 
-  const databaseURL = "http://localhost:3000";
-
   const handleGenerateCourse = async () => {
     setStatus(Status.loading);
 
     try {
       setTopic("");
       await axios.post(
-        `${databaseURL}/course`,
-        // "http://localhost:3000/course",
+        `${process.env.NEXT_PUBLIC_API_URL}/course`,
         {
           topic,
-          // userId: user!.id,
         },
         {
           headers: {
