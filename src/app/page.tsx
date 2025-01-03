@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import { Loader, StepForward } from "lucide-react";
+import { StepForward } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {

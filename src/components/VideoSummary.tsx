@@ -1,5 +1,3 @@
-import { SelectChapter } from "@/database/schema/chapters";
-
 interface VideoSummaryProps {
   chapter: {
     id: string;
