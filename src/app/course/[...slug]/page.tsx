@@ -14,7 +14,7 @@ export default async function Page({ params: { slug } }: PageProps) {
   const [courseId, unitIndexParam, chapterIndexParam] = slug;
 
   const courseDetails: Course = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/course/${courseId}`,
+    `${process.env.BACKEND_API_URL}/course/${courseId}`,
   )
     .then((res) => res.json())
     .catch((error) => {

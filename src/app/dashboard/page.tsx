@@ -9,7 +9,7 @@ interface Course {
 
 export default async function Page() {
   const courseList: Course[] = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/course`,
+    `${process.env.BACKEND_API_URL}/course`,
     {
       cache: "no-cache",
     },

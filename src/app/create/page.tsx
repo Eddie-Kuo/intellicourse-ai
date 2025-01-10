@@ -23,7 +23,7 @@ export default function Page() {
     try {
       setTopic("");
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/course`,
+        `${process.env.BACKEND_API_URL}/course`,
         {
           topic,
         },
