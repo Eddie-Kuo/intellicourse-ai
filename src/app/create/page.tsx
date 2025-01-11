@@ -1,8 +1,6 @@
 "use client";
 
 import Loader from "@/components/Loader";
-import { useUser } from "@clerk/nextjs";
-import axios from "axios";
 import { useState } from "react";
 import { navigate } from "../actions/navigate";
 
@@ -14,7 +12,6 @@ enum Status {
 
 export default function Page() {
   const [topic, setTopic] = useState("");
-  const { user } = useUser();
   const [status, setStatus] = useState<Status>();
 
   const handleGenerateCourse = async () => {
@@ -22,17 +19,13 @@ export default function Page() {
 
     try {
       setTopic("");
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course`,
-        {
-          topic,
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        },
-      );
+        body: JSON.stringify({ topic: topic }),
+      });
       setStatus(Status.success);
     } catch (error) {
       console.log("Error encountered with generating course:", error);
