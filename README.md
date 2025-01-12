@@ -16,7 +16,7 @@ Intellicourse is a web app that is built with the intention of making online lea
 
 **Client:** Next.js, TailwindCSS, TypeScript
 
-**Server:** Axios, Drizzle ORM, Turso DB, OpenAI, YouTube API
+**Server:** Prisma ORM, Supabase, OpenAI, YouTube API
 
 
 ## 🚦 Getting Started
