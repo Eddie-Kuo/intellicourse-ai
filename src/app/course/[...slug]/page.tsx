@@ -15,6 +15,9 @@ export default async function Page({ params: { slug } }: PageProps) {
 
   const courseDetails: Course = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course/${courseId}`,
+    {
+      cache: "no-cache",
+    },
   )
     .then((res) => res.json())
     .catch((error) => {
