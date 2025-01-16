@@ -5,6 +5,7 @@ export interface Course {
     id: string;
     title: string;
     courseId: string;
+    unitNumber: number;
     chapters: {
       id: string;
       unitId: string;
@@ -12,6 +13,7 @@ export interface Course {
       videoId: string;
       youtubeSearchQuery: string;
       summary: string;
+      chapterNumber: number;
       questions: {
         id: string;
         chapterId: string;
