@@ -16,7 +16,7 @@ export default async function Page({ params: { slug } }: PageProps) {
   const courseDetails: Course = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course/${courseId}`,
     {
-      cache: "no-cache",
+      cache: "default", // Next.js default behavior is force cache - affected the numbering in the sidebar
     },
   )
     .then((res) => res.json())
