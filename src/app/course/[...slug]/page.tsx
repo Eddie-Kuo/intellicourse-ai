@@ -39,11 +39,7 @@ export default async function Page({ params: { slug } }: PageProps) {
         />
       </aside>
 
-      <VideoSummary
-        chapter={chapter}
-        unitIndex={unitIndex}
-        chapterIndex={chapterIndex}
-      />
+      <VideoSummary chapter={chapter} unitNumber={unit.unitNumber} />
       <Quiz questions={chapter.questions} />
     </div>
   );
