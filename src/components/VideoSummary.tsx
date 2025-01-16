@@ -6,17 +6,17 @@ interface VideoSummaryProps {
     videoId: String;
     youtubeSearchQuery: String;
     summary: String;
+    chapterNumber: number;
   };
-  unitIndex: number;
-  chapterIndex: number;
+  unitNumber: number;
 }
 
-function VideoSummary({ chapter, unitIndex, chapterIndex }: VideoSummaryProps) {
+function VideoSummary({ chapter, unitNumber }: VideoSummaryProps) {
   return (
     <div className="flex-[3]">
       <div className="flex items-center gap-2">
         <h4 className=" text-xl">
-          Unit {unitIndex + 1} - Chapter {chapterIndex + 1}:
+          Unit {unitNumber} - Chapter {chapter.chapterNumber}:
         </h4>
         <h1 className=" text-xl  font-semibold tracking-wide">
           {chapter.title}

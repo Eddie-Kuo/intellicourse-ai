@@ -21,7 +21,9 @@ export default function CourseSideBar({
       {courseDetails.units.map((unit, unitIndex) => {
         return (
           <div key={unit.id}>
-            <h2 className="text-lg font-semibold text-sky-800">{unit.title}</h2>
+            <h2 className="text-lg font-semibold text-sky-800">
+              Unit: {unit.unitNumber} - {unit.title}
+            </h2>
             {unit.chapters.map((chapter, chapterIndex) => {
               return (
                 <div
