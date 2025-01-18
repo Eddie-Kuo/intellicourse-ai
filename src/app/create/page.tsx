@@ -10,6 +10,8 @@ enum Status {
   error = "error",
 }
 
+type GeneratedCourse = Record<string, string>;
+
 export default function Page() {
   const [topic, setTopic] = useState("");
   const [status, setStatus] = useState<Status>();
@@ -19,14 +21,19 @@ export default function Page() {
 
     try {
       setTopic("");
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response: GeneratedCourse = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API_URL}/course`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ topic: topic }),
         },
-        body: JSON.stringify({ topic: topic }),
-      });
-      setStatus(Status.success);
+      ).then((res) => res.json());
+
+      // navigate is a server function because we are in a client component
+      navigate(`course/${response.courseId}/0/0`);
     } catch (error) {
       console.log("Error encountered with generating course:", error);
       setStatus(Status.error);
@@ -50,10 +57,6 @@ export default function Page() {
         <Loader />
       </div>
     );
-  }
-
-  if (status === Status.success) {
-    navigate("dashboard");
   }
 
   return (
