@@ -74,7 +74,7 @@ export default function Page() {
             onChange={(e) => setTopic(e.target.value)}
             value={topic}
             placeholder="enter topic"
-            className="ring-slate rounded-lg  px-4 py-2  ring-1"
+            className="ring-slate rounded-lg px-4 py-2 ring-1"
           />
           <button
             onClick={handleGenerateCourse}
