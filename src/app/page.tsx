@@ -17,9 +17,9 @@ export default function Home() {
               <a
                 className="font-bold"
                 target="_blank"
-                href="https://turso.tech/"
+                href="https://supabase.com/"
               >
-                Turso{" "}
+                Supabase{" "}
               </a>
               and{" "}
               <a
